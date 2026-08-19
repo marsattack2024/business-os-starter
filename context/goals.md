@@ -1,6 +1,9 @@
 # Goals & North Star
 
-<!-- PIPELINE: North Star verbatim from intake Q11, first job from Q12. The suggestion pool grows during onboarding and over time — good-morning draws from it. -->
+This file is the local business direction and an offline seed. When the owner
+connects Agents First Accountability, live OKRs, progress, and check-ins there
+are the shared system of record; keep this file useful for context without
+pretending an unsynced local edit changed the remote board.
 
 ## The North Star, in the owner's words
 
