@@ -35,6 +35,8 @@ Search the repo for `{{` and work the list down. Skills legitimately contain `{{
 grep -rn '{{[A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' . | grep -v '.claude/skills/'
 ```
 
+When every token is filled, **strip the operator notes**: every `context/` file opens with an `<!-- PIPELINE: ... -->` comment addressed to you, not the student. Delete every one — README tells students these files are plain English, and the first thing they'd read is a note about intake question numbers they never saw. The gate in step 7 now checks.
+
 ### Context and docs
 
 | Token | Filled from | Lives in |
@@ -71,21 +73,17 @@ Tokens live in `site/app/page.tsx` (the page copy), `site/app/layout.tsx` (the b
 | `{{TAGLINE}}` | one line under the business name |
 | `{{HERO_HEADLINE}}` | their offer's promise, in their words |
 | `{{HERO_SUBTEXT}}` | one sentence — who it's for and what they get |
-| `{{CTA_LABEL}}` / `{{CTA_LINK}}` | "Book a call" / their booking link or `mailto:` |
+| `{{CTA_LABEL}}` / `{{CTA_LINK}}` | "Book a call" / their booking link — **no intake question captures this; ask them Wed/Thu.** No booking link → `mailto:` the confirmed public email from `{{CONTACT_EMAIL}}`. **Never invent an address** |
 | `{{SERVICE_1..3_TITLE}}` / `{{SERVICE_1..3_TEXT}}` | Q7a offers |
 | `{{TESTIMONIAL_QUOTE}}` / `{{TESTIMONIAL_NAME}}` | a real review. None? Delete the whole Proof section. |
 | `{{CLOSING_HEADLINE}}` | the ask, once more |
-| `{{CONTACT_EMAIL}}` | Q2 |
+| `{{CONTACT_EMAIL}}` | their **public** business email — ask Wed/Thu. **Not Q2** (Q2 is their personal signup inbox; the homepage publishes this twice) |
 
 Colors: set the brand color in the `@theme` block of `site/app/globals.css` to something from their existing brand. One hex change, big perceived effort.
 
 ## 4. Employee track (Q3 = "I work in someone else's business")
 
-Only if Q3 says employee. Two swaps:
-
-```bash
-rm context/offer.md
-```
+Only if Q3 says employee. Two new files plus one repurpose — `context/offer.md` is **kept**, never deleted (see the warning below before touching it):
 
 **`context/role.md`** — what they're responsible for:
 
@@ -196,6 +194,12 @@ In the student's repo folder, open Codex and run these five. Do not skip it beca
      | grep -v '.claude/skills/' | grep -v 'PERSONALIZE.md'
    ```
 
+   and so does this one (operator notes stripped):
+
+   ```bash
+   grep -rn 'PIPELINE' --include='*.md' --include='*.tsx' . | grep -v 'PERSONALIZE.md'
+   ```
+
 Then empty `content/` so their repo starts clean — everything the smoke test made, **plus the shipped `2026-08-22-blog-example-post.md`**. That example is there to demo the loop on a fresh template; a student's real site should not launch with it.
 
 ## 8. Per-student checklist
@@ -206,7 +210,7 @@ Copy this per student. Nobody ships without all ten.
 [ ] 1 repo copied + renamed        [ ] 6 npm install + build pass
 [ ] 2 enriched from site/socials   [ ] 7 smoke test: good-morning names them
 [ ] 3 all tokens filled            [ ] 8 smoke test: site + blog post appear
-[ ] 4 track correct (owner/emp)    [ ] 9 no {{ tokens left, content/ empty
+[ ] 4 track correct (owner/emp)    [ ] 9 no {{ or PIPELINE left, content/ empty
 [ ] 5 client folder named/deleted  [ ] 10 pushed + invite sent
 ```
 
