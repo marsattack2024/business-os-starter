@@ -18,8 +18,10 @@ That's the whole habit. Your employee reads up on your business, looks at what y
 | `context/` | What your employee **knows** — your business, customers, offer, voice, goals. Open these files; they're plain English. Correcting them makes your employee smarter. |
 | `.claude/skills/` | What your employee **can do** — each skill is a short readable file. Edit one and the behavior changes forever. |
 | `site/` | Your website. See `site/README.md` for the two commands. |
-| `content/` | Everything your employee **makes** — dated, in Finder, yours. Blog posts saved here appear on your website by themselves; see `content/README.md`. |
-| `clients/` | One folder per client — the background your employee needs for that one customer, kept apart from the rest. See `clients/README.md`. |
+| `content/` | Private drafts and work product — dated, in Finder, yours. Nothing here appears on the website until you explicitly approve a blog post for `site/content/`; see `content/README.md`. |
+| `work/` | Separate facts, rules, sources, status, and deliverables for each client engagement, case, job, property, project, or matter. The path stays stable; see `work/README.md`. |
+| `connections/` | Plain-English setup and boundaries for services each owner connects themselves. Credentials never live here. |
+| `capabilities/` | The reviewed, pinned catalog of optional project skills. Nothing installs automatically. |
 | `inbox/` | Drop any file here (a price list, a brochure, meeting notes), then say **"read my inbox"** — your employee studies it and updates what it knows. |
 
 ## What your employee can do
@@ -33,6 +35,8 @@ Ask in your own words — you never have to remember these names.
 - **change my website** — plain-language edits to your site
 - **weekly review** — what got made, what moved, what's next
 - **save my work** — backs everything up to GitHub
+- **wrap up** — proves the work, saves it, captures lessons, and checks local cleanup
+- **start a work item** — creates a clean workspace for a client, case, job, property, or project
 
 **Getting customers**
 - **launch my go-to-market** — researches your market and writes the plan everything else runs on
@@ -46,7 +50,11 @@ Ask in your own words — you never have to remember these names.
 
 **Once you connect your accounts**
 - **connect an account** — walks you through it
+- **connect Agents First** — links your own Accountability workspace for daily check-ins and goals
+- **daily accountability** · **weekly accountability** · **plan my business goals**
 - **run Facebook ads** · **publish to YouTube** · **email my list** · **how are we doing?**
+
+Optional capabilities, such as code-rendered marketing video, are reviewed and added one at a time. See `docs/skills-connections-and-updates.md`; never bulk-install an unknown skill collection.
 
 You also have **onboard me**, which fills in anything your employee still doesn't know about you.
 

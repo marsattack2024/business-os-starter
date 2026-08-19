@@ -39,6 +39,6 @@ The edited file is the real output. Also write `content/YYYY-MM-DD-training-<wha
 
 ## Done when
 
-- Exactly one file changed, and the owner saw the before and after.
+- Only the intended context or skill file changed, plus the short training note, and the owner saw the meaningful before and after.
 - The change was tested and the new behavior actually happened.
 - The note in `content/` says which file to look at if they want to undo it.

@@ -1,10 +1,5 @@
 # Rules This Business Must Follow
 
-<!-- PIPELINE: leave the regulated section empty for most businesses. Fill it when the
-     student's profession is licensed or regulated — law, medicine, dentistry, therapy,
-     financial advice, insurance, real estate, accounting, contracting. When in doubt,
-     ask them. These rules outrank every marketing instinct in every skill. -->
-
 ## Claims we can never make
 
 <!-- Universal: things that are untrue, unprovable, or unsupportable for THIS business. -->

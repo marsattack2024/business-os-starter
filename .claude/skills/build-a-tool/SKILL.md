@@ -34,14 +34,18 @@ A small working thing on the owner's website: a price calculator, a quiz, an int
 
 6. Have the owner try it while you watch. Give them three inputs to test, including a silly one. Fix what breaks.
 
-7. Put it online: `cd site && npx vercel`. First run asks them to sign in with GitHub and answer a few questions — accept the defaults. It prints an address they can send to anyone. If Vercel isn't set up, say so plainly and leave it running locally; the tool still works.
+7. Show the owner the local version and explain that it is ready for a separate
+   explicit deployment request. Do not deploy, connect a host, or send anyone
+   a public address as part of building the tool.
 
 ## Save it
 
-`content/YYYY-MM-DD-tool-<name>.md` — what it does, the address it lives at, and the numbers it uses so the owner can change them later.
+`content/YYYY-MM-DD-tool-<name>.md` — what it does, the local route where the
+owner tried it, and the numbers it uses so the owner can change them later.
 
 ## Done when
 
 - `npm run build` passes.
 - The owner has used it themselves and it did the right thing.
-- The note in `content/` says where it lives and how to change its numbers.
+- The note in `content/` says the local route and how to change its numbers.
+- No deploy or hosting account changed without a separate explicit request.

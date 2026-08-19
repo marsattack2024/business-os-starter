@@ -18,28 +18,49 @@ Some owners are licensed — lawyers, doctors, therapists, financial advisers, i
 
 - Plain language, always. The owner is not technical — report what you did in one or two sentences a non-technical person follows on first read.
 - Facts about the business come from `context/` or from asking the owner one clear question. A guess presented as a fact is the worst mistake you can make here.
-- Save every finished piece into `content/` with the date first in the filename: `content/2026-08-22-email-follow-up-maria.md`. Work the owner can't find in Finder later doesn't count as done.
+- Save every finished business-wide draft into `content/` with the date first in the filename: `content/YYYY-MM-DD-email-follow-up.md`. Work the owner can't find in Finder later doesn't count as done.
 - You draft; the owner approves. For anything that leaves the business — an email to send, a post to publish — hand over the finished draft and stop there.
 - When the owner corrects you (tone, a fact, a rule), update the matching `context/` file in the same turn and say what you updated. A correction should pay off more than once.
 
-## Working for a specific client
+## Keep momentum and learn from the work
+
+Work autonomously when the next move is reversible and stays inside this
+private repository. State a reasonable assumption, make the smallest useful
+move, and inspect the result. Stop only when a missing fact or authority would
+materially change the outcome, or before an external send, publish, deploy,
+spend, account connection, credential change, or destructive cleanup.
+
+During substantial work, quietly append a short line to
+`.session-observations.md` when you encounter repeated rework, waiting, stale
+instructions, avoidable cost, a confusing tool, or a shortcut worth keeping.
+Include what happened and one piece of evidence. Do not log routine steps, do
+not put secrets or customer facts there, and do not interrupt useful work just
+to discuss the note. Record it, then continue the task. The `wrap-up` skill
+distills it at the end.
+
+## Working on a specific item
 
 `context/` is the business. It always applies.
 
-Some work is for one client in particular. When the owner names one — "draft the update for Acme Roofing" — read `clients/<name>/context.md` and `clients/<name>/rules.md` before you start, on top of the usual context files.
+Some work belongs to one case, client engagement, job, property, project, or other repeatable item. When the owner names one, read `work/<name>/context.md`, `work/<name>/rules.md`, and `work/<name>/status.md` before starting, on top of the usual context files.
 
-- Where a client's `rules.md` and the general rules disagree, **the client's rules win.**
-- Save what you make inside that client's folder, not in the shared `content/`. Same filename habit: `clients/acme-roofing/2026-08-22-email-follow-up.md`.
-- Never carry facts between clients. What you learned working for one is not a fact about another — not a price, not a name, not a result.
-- If the owner names a client with no folder yet, say so and offer to make one by copying `clients/_template/`.
+- Where a work item's `rules.md` and the general rules disagree, follow the stricter rule.
+- Save finished item-specific work under `work/<name>/deliverables/`, not in shared `content/` or beside source material.
+- Never carry facts, sources, permissions, or conclusions between work items.
+- If the named item has no folder, use `start-work-item`; never overwrite an existing folder.
 
-Plenty of businesses have no per-client work. If this repo has no `clients/` folder, that's deliberate — skip this section.
+The path is always `work/<name>`. A business may call the item a client, case, matter, job, property, project, or engagement without renaming the storage contract.
 
 ## The website
 
 `site/` is the owner's website. Words live in `site/app/page.tsx`, one commented section per part of the page. Colors and fonts live in the `@theme` block at the top of `site/app/globals.css`. Most look-and-feel requests are a one-line change in one of those two files.
 
-**Blog posts are not typed into the site.** The site reads `content/` and puts up any file whose top block says `published: true` — on the homepage under "Latest writing" and at `/blog`. So a post you save in `content/` is on the owner's site the moment you save it, and changing that one word to `false` takes it down. Everything else in `content/` — emails, plans, notes — has no such line and is never shown.
+**Blog posts are not typed into the site.** `content/` is a private drafts
+folder that the website never reads. After the owner explicitly approves an
+exact blog draft, use **publish this post** to copy that one file into
+`site/content/`; only that public folder feeds "Latest writing" and `/blog`.
+Publishing prepares the website change and runs a build; deployment remains a
+separate explicit request.
 
 Change the smallest thing that answers the request. After editing, tell the owner to look at their browser tab — if the site isn't running, tell them to type `npm run dev` inside the `site` folder first.
 
@@ -51,4 +72,7 @@ Your trained procedures live in `.claude/skills/`. When a task matches one, foll
 
 ## When you're unsure
 
-Ask one short question and wait. One clear question beats a paragraph of options, and it beats a confident guess every time.
+If a reversible default preserves the owner's intent, use it and say what you
+assumed. When a missing answer would change a public, external, regulated, or
+destructive result, ask one short question and wait. One clear question beats
+a paragraph of options, and it beats a consequential guess.

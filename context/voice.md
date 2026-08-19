@@ -1,7 +1,5 @@
 # How {{OWNER_FIRST_NAME}} Sounds
 
-<!-- PIPELINE: the verbatim sample from intake Q10 goes below untouched — it is the single most important thing in this file. Voice rules distilled from the sample + their public posts. -->
-
 ## A real example, in the owner's own words
 
 > {{VOICE_SAMPLE}}

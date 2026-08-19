@@ -1,22 +1,21 @@
 // ============================================================
 // HOW YOUR WRITING GETS ONTO YOUR WEBSITE
 //
-// Your employee saves everything it makes into the `content`
-// folder at the top of this project. Most of those files are
-// private working documents — emails, plans, meeting notes.
-// Those should never appear on your website.
+// Your employee saves drafts and working documents in the
+// project's top-level `content` folder. That folder is private:
+// this site never reads it.
 //
-// So there is one rule, and it is a switch you can see:
+// Only files deliberately copied into `site/content` can be read
+// by this website. That is the publication boundary.
 //
-//   A file in `content/` becomes a post on your website
-//   only if it starts with `published: true`.
+// A public file also needs `published: true` at the top:
 //
 // That looks like this, at the very top of the file, between
 // two lines of three dashes:
 //
 //   ---
 //   title: Why most quotes go cold
-//   date: 2026-08-22
+//   date: YYYY-MM-DD
 //   published: true
 //   ---
 //
@@ -24,8 +23,8 @@
 // Files with no such block are ignored, quietly. Nothing breaks.
 //
 // The web address of a post is its filename without `.md`, so
-// content/2026-08-22-blog-why-most-quotes-go-cold.md
-// shows up at /blog/2026-08-22-blog-why-most-quotes-go-cold
+// site/content/YYYY-MM-DD-blog-why-most-quotes-go-cold.md
+// shows up at /blog/YYYY-MM-DD-blog-why-most-quotes-go-cold
 //
 // You do not need to read the code below.
 // ============================================================
@@ -33,15 +32,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { marked } from "marked";
+import { renderPublicMarkdown } from "./render-public-markdown.mjs";
 
-// The `content` folder sits one level above this `site` folder.
-const CONTENT_DIR = path.join(process.cwd(), "..", "content");
+// `site/content` is the only directory the deployable site reads.
+const CONTENT_DIR = path.join(process.cwd(), "content");
 
 export type Post = {
   slug: string;
   title: string;
-  date: string; // "2026-08-22", or "" if the file never said
+  date: string; // "YYYY-MM-DD", or "" if the file never said
   summary: string;
   html: string;
 };
@@ -117,7 +116,7 @@ export function getPosts(): Post[] {
         title: readTitle(data.title, slug),
         date: readDate(data.date, filename),
         summary: readSummary(data.summary, content),
-        html: marked.parse(content, { async: false }),
+        html: renderPublicMarkdown(content),
       });
     } catch {
       continue; // Broken file. Skip it, keep the site up.

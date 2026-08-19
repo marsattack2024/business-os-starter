@@ -1,7 +1,5 @@
 # Who {{BUSINESS_NAME}} Serves
 
-<!-- PIPELINE: fill from intake Q6 + enrichment from their site/socials (testimonials, who they photograph/serve/post about). -->
-
 ## The ideal customer
 
 {{IDEAL_CUSTOMER}}

@@ -1,0 +1,14 @@
+{
+  "name": "business-os-starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test scripts/starter-contract.test.mjs",
+    "test:site": "node --test scripts/markdown-safety.test.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "site:install": "npm --prefix site ci --ignore-scripts",
+    "site:build": "npm --prefix site run build",
+    "verify:build-boundary": "node scripts/verify-build-boundary.mjs",
+    "check": "npm test && npm run doctor && npm run site:install && npm run test:site && npm run site:build && npm run verify:build-boundary"
+  }
+}
