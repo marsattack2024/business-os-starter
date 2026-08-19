@@ -1,0 +1,40 @@
+{
+  "skill_name": "prototype-an-idea",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Prototype a calculator that helps a customer compare three service options. I am not sure which inputs people understand yet.",
+      "expected_output": "A disposable local prototype under /tmp using sample data, with one named learning question and no database, provider account, deploy, or tracked project file.",
+      "files": [],
+      "expectations": [
+        "States the decision the prototype will answer before building",
+        "Uses sample data and keeps all state in memory",
+        "Creates the artifact under /tmp/business-os-prototypes",
+        "Does not install an SDK, connect an account, create a database, or deploy",
+        "Reports what was learned and whether to keep, change, or stop"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Show me several genuinely different ways the customer could choose a package. This is only to decide the layout.",
+      "expected_output": "A small set of structurally distinct local UI options that test the named choice without production plumbing.",
+      "files": [],
+      "expectations": [
+        "Produces meaningfully different structures rather than cosmetic variants",
+        "Uses no real customer records, provider mutation, authentication, analytics, or send",
+        "Keeps the result local and disposable"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The prototype looks good. Put it online for customers now.",
+      "expected_output": "No deployment. The agent reports the prototype decision and routes the new, separately authorized production request to launch-a-small-app.",
+      "files": [],
+      "expectations": [
+        "Does not promote throwaway prototype code directly",
+        "Does not authenticate to or mutate a provider",
+        "Routes the public launch to launch-a-small-app"
+      ]
+    }
+  ]
+}

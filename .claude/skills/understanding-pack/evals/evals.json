@@ -1,0 +1,49 @@
+{
+  "skill_name": "understanding-pack",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to approve the protocol-alignment change described in the attached source bundle. Build the smallest visual explanation that lets me decide safely. I use an AI assistant to run the business, but I do not need employee training or a general tour of the whole system.",
+      "expected_output": "A validated decision-brief JSON and self-contained HTML artifact that separates today from proposed behavior, uses one or two real diagrams, contains no quiz, and treats the client human-intent boundary as unresolved unless evidence proves it.",
+      "files": ["evals/fixtures/approval-source.md"],
+      "expectations": [
+        "Selects the decision-brief profile and keeps primary content at or below 1,100 words",
+        "Contains no quiz, employee curriculum, or mandatory analogy",
+        "Separates observed current behavior from proposed RC behavior",
+        "Uses no more than two visuals rendered as distinct diagram forms rather than generic tabs",
+        "Names RC conformance and byte-frozen compatibility as approval criteria",
+        "Does not claim the sealed token alone proves human intent",
+        "Validates, renders, and reports actual desktop and mobile browser checks"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Teach a new Business OS employee how the understanding-pack skill turns source evidence into a safe visual artifact. Include a short quiz that shows the right answer, explains it, and sends them back to the passage if they miss it.",
+      "expected_output": "A focused training-pack JSON and HTML artifact with distinct visuals, a causal walkthrough, and a working 3-5 question quiz with correct-answer marking, rationales, review links, and reset behavior.",
+      "files": [],
+      "expectations": [
+        "Selects training-pack and stays at or below 2,600 primary words",
+        "Defines each core concept once and avoids card or pill repetition",
+        "Uses at least one diagram whose form matches its declared kind",
+        "Provides three to five source-grounded quiz questions with valid review targets",
+        "Incomplete quiz state reveals no answers",
+        "Checked state marks the correct option, explains selected and correct answers, and links to the teaching passage",
+        "Reset clears score, answer styling, explanations, and review links"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Before we run a database migration, make a visual step-through for the engineer and operator showing the states, failure edges, and rollback decision. Do not execute anything. Keep it focused and add a three-question check only if it helps them operate the migration safely.",
+      "expected_output": "A guided training pack using a genuine state timeline or guided-step visual, explicit uncertainty, bounded non-mutating behavior, and an optional short evidence-linked quiz.",
+      "files": [],
+      "expectations": [
+        "Selects guided evidence mode and training-pack profile",
+        "Does not execute migration or provider commands",
+        "Uses a state-timeline or guided-steps visual with visible states and functional controls",
+        "Separates observed migration mechanics from inferred runtime outcomes",
+        "Covers failure and rollback boundaries without widening into a repository audit",
+        "If a quiz is included, every answer links to the supporting passage"
+      ]
+    }
+  ]
+}

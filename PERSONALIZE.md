@@ -155,14 +155,21 @@ the first real unit appears.
 ## 6. Install and build the site
 
 ```bash
+node --version
+npm run doctor
 cd site && npm install && npm run build && cd ..
 ```
 
-Both must pass. Leave `node_modules/` in place — Friday's venue wifi is not a dependency you want.
+The version must be Node 24 and the doctor and build must pass. The repository
+pins the exact tested version in `.nvmrc` and `.node-version`; correct the
+operator machine before continuing instead of handing a student a mismatched
+runtime. Leave `node_modules/` in place — Friday's venue wifi is not a
+dependency you want.
 
 ## 7. Smoke test — the real gate
 
-In the student's repo folder, open Codex and run these five. Do not skip it because the files "look right."
+In the student's repo folder, open Codex and run these seven. Do not skip it
+because the files "look right."
 
 1. **`good-morning`** — does it name their business, their North Star, and suggest three moves that are actually about them? Generic advice here means a context file is thin. Fix the file, not the answer.
 2. **`update-website`** — ask for one word change on the homepage. Confirm `npm run build` still passes.
@@ -172,7 +179,16 @@ In the student's repo folder, open Codex and run these five. Do not skip it beca
    on the website. Then explicitly say **publish this post**, naming that
    file. Confirm only its approved copy appears under "Latest writing" and at
    `/blog`. This proves both sides of the publication boundary.
-5. **This returns nothing** (it ignores this file, the skills, and real JSX braces):
+5. **`help me understand this`** — ask for a short decision brief explaining
+   why the public website cannot read the private business folders, using
+   `AGENTS.md` and `site/lib/posts.ts` as sources. Confirm the skill validates
+   and renders a visual file under `/tmp`, names both sources, and makes no
+   provider connection.
+6. **`prototype this idea`** — ask for a disposable local prototype of one
+   simple idea using sample data. Confirm the reported path is under
+   `/tmp/business-os-prototypes/`, no account or database was connected, and
+   `git status --short` has no new tracked project file from the prototype.
+7. **This returns nothing** (it ignores this file, the skills, and real JSX braces):
 
    ```bash
    grep -rn '{{[A-Z][A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' \

@@ -62,6 +62,13 @@ exact blog draft, use **publish this post** to copy that one file into
 Publishing prepares the website change and runs a build; deployment remains a
 separate explicit request.
 
+The repository also contains private business and work-item records. Never
+connect or upload the repository root to a cloud build service. A public host
+may receive only a reviewed deployable directory or build artifact that has
+been checked to exclude `context/`, private root `content/`, `work/`, `inbox/`,
+Git history, local environment files, and unrelated records. A separately
+maintained app uses its own deployment repository and completion checks.
+
 Change the smallest thing that answers the request. After editing, tell the owner to look at their browser tab — if the site isn't running, tell them to type `npm run dev` inside the `site` folder first.
 
 The site runs Next.js 16, which changed things you may remember differently. Before writing anything beyond edits to the two files above — a new page, a form, anything with data — read the matching guide in `site/node_modules/next/dist/docs/`. Then run `cd site && npm run build` and only hand back work that passes.

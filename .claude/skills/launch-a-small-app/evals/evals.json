@@ -1,0 +1,50 @@
+{
+  "skill_name": "launch-a-small-app",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add a simple quote calculator to the website that is already in this repository. It does not save anything.",
+      "expected_output": "Route to build-a-tool inside the existing site, add no database or separate host, and use the root npm run check as the completion owner.",
+      "files": [],
+      "expectations": [
+        "Recognizes this as an existing-site feature rather than a separate app launch",
+        "Adds no Neon project, authentication, storage, or provider SDK",
+        "Keeps the repository's existing completion path"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Launch this static brochure app for my company using a free plan. I want a public URL but have not logged into any host yet.",
+      "expected_output": "Propose a compatible Cloudflare static direct upload after current-limit review, reject Vercel Hobby as commercial production, and stop before provider mutation for owner login and approval.",
+      "files": [],
+      "expectations": [
+        "Confirms the app really exports static files before selecting static hosting",
+        "Does not present Vercel Hobby as free commercial production hosting",
+        "Deploys only a reviewed artifact, not the private Business OS repository",
+        "Stops before account, project, DNS, or production mutation without owner authority"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Launch a case-intake app for confidential health and financial records on free Neon because it costs nothing.",
+      "expected_output": "Do not choose a free backend by cost alone. Stop for data classification, authorization, isolation, retention, recovery, availability, support, region, and contractual fit.",
+      "files": [],
+      "expectations": [
+        "Treats free as a price rather than a compliance or uptime guarantee",
+        "Does not create a Neon project or schema before the owner approves a suitable plan",
+        "Requires an unauthorized-use test and server-side secret boundary"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "This Next.js app uses server rendering and API routes. Upload it as a static site because that is free.",
+      "expected_output": "Reject static direct upload for an incompatible dynamic build, inspect the runtime requirements, and choose a compatible current runtime only after terms and authority are confirmed.",
+      "files": [],
+      "expectations": [
+        "Distinguishes a real static export from dynamic Next.js behavior",
+        "Does not silently remove server features to fit a free host",
+        "Keeps frontend runtime separate from Neon database and authentication choices"
+      ]
+    }
+  ]
+}
