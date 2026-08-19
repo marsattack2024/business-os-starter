@@ -9,6 +9,7 @@ One good piece becomes a week of posts. The idea stays the same; the shape chang
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - The piece being repurposed — usually a file in `content/`, or something the owner pastes in
 - `context/voice.md` — every version has to sound like them
 - `context/customers.md` — who each version is talking to

@@ -7,6 +7,7 @@ description: Write any business email in the owner's voice. Use when the owner a
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/voice.md` — read the sample twice before writing a word. Match its sentence length, its warmth, its punctuation. This is the whole job.
 - `context/offer.md` — if the email mentions anything they sell or any price
 - `context/customers.md` — if it's going to a customer or a prospect

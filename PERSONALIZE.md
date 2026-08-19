@@ -152,8 +152,10 @@ Rename (swap `cases` for whichever word applies):
 
 ```bash
 mv clients cases
-sed -i '' 's/clients\//cases\//g; s/client/case/g' AGENTS.md README.md cases/README.md
+sed -i '' 's/clients\//cases\//g' AGENTS.md README.md cases/README.md cases/_template/context.md cases/_template/rules.md
 ```
+
+**Then read those five files and fix the prose by hand — the path swap is mechanical, the words are not.** The template's sentences assume the unit of work is *a person* ("make a folder for someone", "how they like to be spoken to"), which is only true for `clients/`. For `cases/`, `jobs/`, or `projects/` the unit is a *matter*, so rewrite those lines: a case has a client, a job has a customer, and one client can have five matters. Ten minutes, and it's the difference between a repo that reads like theirs and one that reads like a find-and-replace.
 
 (Plain `mv`, not `git mv` — there's no git repo yet at this point. Step 1 deleted it and step 9 recreates it.)
 

@@ -9,6 +9,7 @@ description: Write and manage Facebook and Instagram ads. Use when the owner wan
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/gtm.md` — who we're targeting and the angles. Empty? Run `launch-gtm` first — ads built on guesses cost real money.
 - `context/offer.md` — the offer and the exact price
 - `context/customers.md` — the words they use

@@ -11,6 +11,7 @@ Researches the owner's market and writes the plan for winning customers. Every o
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/business.md`, `context/offer.md`, `context/customers.md` — what we sell and to whom
 - `context/goals.md` — what the owner is actually aiming at
 - `context/voice.md` — so the plan sounds like them

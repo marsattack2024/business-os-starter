@@ -9,6 +9,7 @@ A small useful thing, given away for an email address. Small and finished beats 
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/customers.md` — what this person is stuck on
 - `context/offer.md` — what they'll eventually buy, so the freebie leads there
 - `context/gtm.md` — the angle we're already running (skip if empty)

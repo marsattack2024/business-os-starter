@@ -228,6 +228,14 @@ export default function Home() {
             <p>&copy; {new Date().getFullYear()}</p>
           </div>
         </div>
+
+        {/* LEGAL NOTICE — delete this whole block if you don't need one.
+            Licensed professions usually do: law firms, financial advisers,
+            insurance and real-estate agents, healthcare. Your employee reads
+            context/rules.md and will tell you what belongs here. */}
+        <div className="mx-auto max-w-5xl px-6 pb-10 text-xs leading-relaxed text-muted">
+          {"{{LEGAL_NOTICE}}"}
+        </div>
       </footer>
     </main>
   );

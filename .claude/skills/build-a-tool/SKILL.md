@@ -9,6 +9,7 @@ A small working thing on the owner's website: a price calculator, a quiz, an int
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/offer.md` — real prices, if the tool touches money
 - `context/customers.md` — who's using it and what they already know
 - `site/app/page.tsx` — the section-comment style to copy

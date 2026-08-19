@@ -9,6 +9,7 @@ The cheapest growth a local business has. Most owners never ask, or ask badly.
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/voice.md` — this is the owner writing to someone who likes them
 - `context/customers.md` — what customers already say
 - `context/offer.md` — what they bought

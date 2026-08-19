@@ -9,6 +9,7 @@ Removes the daily "what do I post" decision. Plan once, then `write-content` doe
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/gtm.md` — the angles worth repeating. Empty? Run `launch-gtm` first.
 - `context/customers.md` — the questions they ask
 - `context/offer.md` — what we're actually selling

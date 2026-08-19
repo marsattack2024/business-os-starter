@@ -9,6 +9,7 @@ One page, one offer, one action. Not a brochure.
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/offer.md` — the offer, its exact name and price
 - `context/gtm.md` — who we're going after and what we're saying to them. If this is empty, run `launch-gtm` first; a page built without it is guesswork.
 - `context/customers.md` — the objections and the words they use

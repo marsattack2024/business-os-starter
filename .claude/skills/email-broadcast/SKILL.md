@@ -11,6 +11,7 @@ description: Write and send an email to the whole list. Use when the owner wants
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/voice.md` — a broadcast that sounds like marketing gets deleted
 - `context/offer.md` — the exact offer and price
 - `context/customers.md` — the people receiving it

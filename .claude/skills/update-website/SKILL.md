@@ -9,6 +9,7 @@ The owner describes what they want in their own words. You make the smallest cha
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `site/app/page.tsx` — every word on the homepage, in commented sections
 - `site/app/globals.css` — the `@theme` block at the top holds the colors and fonts
 - `context/voice.md` and `context/offer.md` — before writing any new words on the page

@@ -7,6 +7,7 @@ description: Write a blog post, newsletter, or social post in the owner's voice.
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/voice.md` — the sample is the target. Read it twice.
 - `context/customers.md` — you are writing to one person from this file
 - `context/gtm.md` — the angles worth writing about (skip if it's still empty)

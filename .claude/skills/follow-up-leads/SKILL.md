@@ -9,6 +9,7 @@ Most money is lost to silence, not to "no." This writes the messages that break 
 
 ## Read first
 
+- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
 - `context/voice.md` — these are personal messages, not marketing
 - `context/offer.md` — the exact offer and price they were quoted
 - `context/customers.md` — why people hesitate
