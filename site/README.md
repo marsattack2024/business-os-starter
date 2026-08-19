@@ -52,26 +52,28 @@ after:   {"Wedding photography in Austin, without the stress"}
 
 Save the file and look at your browser.
 
-## Your blog writes itself onto the site
+## Publish a blog post intentionally
 
-You do not add blog posts in `page.tsx`. Ask your employee to write a post; it
-saves the post as a file in the `content/` folder at the top of this project,
-and your site puts it up on its own — on the homepage under "Latest writing"
-and at `http://localhost:3000/blog`.
+You do not add blog posts in `page.tsx`. Ask your employee to write a post and
+it saves a **private draft** in the `content/` folder at the top of this
+project. Private drafts never appear on the website.
 
-One line decides it. Every post file starts with a small block like this:
+When you have approved the exact draft, ask your employee to **publish this
+post**. It copies that one file to `site/content/`, where the website can read
+it, and runs a build check. Publishing never deploys the site.
+
+Every public post starts with a small block like this:
 
 ```
 ---
 title: Why most quotes go cold
-date: 2026-08-22
+date: YYYY-MM-DD
 published: true
 ---
 ```
 
-`published: true` means it's on your site. Change it to `false` and the post
-comes off. The other files in `content/` — your emails, plans and notes — have
-no such line, so your website ignores them.
+`published: true` means the public copy is shown on your site. Change it to
+`false` to take that public copy down. The private draft remains in `content/`.
 
 ## Change your colors
 

@@ -34,7 +34,7 @@ description: Write any business email in the owner's voice. Use when the owner a
 
 ## Save it
 
-`content/YYYY-MM-DD-email-<who-its-to>.md` — for example `content/2026-08-22-email-maria-follow-up.md`.
+`content/YYYY-MM-DD-email-<who-its-to>.md` — use today's date, for example `content/YYYY-MM-DD-email-maria-follow-up.md`.
 
 ## Done when
 

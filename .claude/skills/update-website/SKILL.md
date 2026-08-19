@@ -22,7 +22,12 @@ The owner describes what they want in their own words. You make the smallest cha
 
    If a request needs a section that doesn't exist yet, say so plainly and ask if they want you to add one.
 
-   **Blog posts are the exception.** The homepage "Latest writing" section, the `/blog` list, and each post page are built from the files in `content/` — you never type a post into `page.tsx`. A post appears when its file starts with `published: true`, and comes off the site when that says `false`. If the owner asks why a post isn't showing, open its file in `content/` and check that line first.
+   **Blog posts are the exception.** The homepage "Latest writing" section,
+   the `/blog` list, and each post page are built only from `site/content/` —
+   you never type a post into `page.tsx`. `content/` contains private drafts
+   and is never read by the website. Use **publish this post** only after the
+   owner explicitly approves a draft; if a public post is missing, inspect its
+   copy in `site/content/` and its `published:` line.
 
 2. Make the change. Keep the section comments intact — they're how the owner finds their way around this file. If you add a section, give it a comment block in the same style.
 

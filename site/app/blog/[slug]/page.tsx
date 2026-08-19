@@ -1,13 +1,13 @@
 // ============================================================
 // ONE BLOG POST
 //
-// This page renders a single file from the `content` folder as
+// This page renders a single public file from `site/content` as
 // a page on your site. The address is the filename without the
 // `.md` on the end.
 //
 // You never edit this file to publish. You write a post, your
-// employee saves it in `content/` with `published: true`, and
-// this page does the rest.
+// employee explicitly publishes it into `site/content/` with
+// `published: true`, and this page does the rest.
 // ============================================================
 
 import type { Metadata } from "next";

@@ -36,28 +36,31 @@ description: Write a blog post, newsletter, or social post in the owner's voice.
 
 6. If the owner rewrites a line in their own words, that's voice data — add the pattern to `context/voice.md` in the same turn and say so.
 
-## Save it
+## Save the private draft
 
-`content/YYYY-MM-DD-<platform>-<topic>.md` — for example `content/2026-08-22-blog-why-most-quotes-go-cold.md`.
+`content/YYYY-MM-DD-<platform>-<topic>.md` — use today's date, for example `content/YYYY-MM-DD-blog-why-most-quotes-go-cold.md`.
 
-Start the file with these four lines, exactly, before the writing itself:
+Start every draft with these four lines, exactly, before the writing itself:
 
 ```
 ---
 title: Why most quotes go cold
-date: 2026-08-22
-published: true
+date: YYYY-MM-DD
+published: false
 ---
 ```
 
-`published: true` is what puts the piece on the owner's website — it shows up on the homepage under "Latest writing" and at `/blog`. Set it that way for a **blog post or a newsletter**, which is where it belongs.
-
-Write `published: false` for anything that isn't a page on their site — an Instagram caption, a LinkedIn post, a script. Same file, same folder, just not on the website.
+This folder is private: no draft saved here appears on the website. Do not
+change that value as a shortcut. For a blog post, show the finished draft to
+the owner and wait for explicit approval. Only then use **publish this post**
+to make a public copy in `site/content/`. Newsletters and social posts stay
+private drafts until the owner sends or publishes them through their chosen
+channel.
 
 ## Done when
 
 - The draft is saved in `content/`, with the platform in the filename.
-- The file starts with the four-line block, and `published:` is true or false on purpose.
-- If it's true, tell the owner it's on their site now, where to look, and that changing that one word to `false` takes it down.
+- The file starts with the four-line block and stays `published: false`.
+- The owner knows this is a private draft and that website publication is a separate explicit request.
 - Every fact in it came from `context/`, from the owner, or from something you actually looked up.
 - The owner has seen it.

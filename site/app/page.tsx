@@ -140,10 +140,11 @@ export default function Home() {
           Your three newest blog posts, with a link to the full
           list at /blog.
 
-          You do not type posts in here. Ask your employee to
-          "write a blog post" — it saves the post into the
-          content folder at the top of this project, and this
-          section picks it up.
+          You do not type posts in here. "Write a blog post"
+          saves a private draft at the top of this project.
+          Only after the owner explicitly says "publish this
+          post" is its approved copy added to site/content and
+          picked up here.
 
           Nothing published yet? This whole block disappears on
           its own, so the page never looks unfinished.
@@ -220,10 +221,10 @@ export default function Home() {
           <p className="font-medium text-ink">{"{{BUSINESS_NAME}}"}</p>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-8">
             <a
-              href="mailto:{{CONTACT_EMAIL}}"
+              href="mailto:{{PUBLIC_CONTACT_EMAIL}}"
               className="transition-colors hover:text-brand"
             >
-              {"{{CONTACT_EMAIL}}"}
+              {"{{PUBLIC_CONTACT_EMAIL}}"}
             </a>
             <p>&copy; {new Date().getFullYear()}</p>
           </div>

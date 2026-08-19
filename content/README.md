@@ -1,18 +1,10 @@
-Everything your employee makes lands here, newest name last.
+Everything your employee drafts lands here, newest name last. This is a
+**private drafts** folder: it never appears on the website, even if a file has
+`published: true` in it.
 
-Some of these files are also your blog. A file shows up on your website only
-if it starts with a small block like this:
+When you explicitly approve a blog post for the public site, ask your employee
+to **publish this post**. It will copy that one approved draft to
+`site/content/`, build the site to check it, and tell you what is ready. It
+will not deploy or make any other draft public.
 
-```
----
-title: Why most quotes go cold
-date: 2026-08-22
-published: true
----
-```
-
-`published: true` puts it on your site — on the homepage under "Latest
-writing" and at `/blog`. Change that one word to `false` and it comes off.
-Files without that block — your emails, plans and notes — stay private.
-
-You can delete this file.
+Keep emails, plans, notes, and draft posts here. You can delete this file.

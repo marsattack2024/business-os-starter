@@ -3,9 +3,9 @@
 //
 // This page lives at /blog on your site.
 //
-// It reads the `content` folder at the top of this project and
-// shows every file marked `published: true`. You do not add
-// posts here. You write them, and they appear.
+// It reads only `site/content` and shows every file marked
+// `published: true`. Private drafts live outside this site and
+// are never read here.
 //
 // See site/lib/posts.ts for the one rule that decides what
 // counts as a post.
@@ -30,8 +30,8 @@ export default function BlogIndex() {
       {posts.length === 0 ? (
         // Nothing published yet. This message replaces the list.
         <p className="mt-6 text-lg leading-relaxed text-muted">
-          Nothing published yet. Ask your employee to write a post, and it
-          shows up here.
+          Nothing published yet. Ask your employee to write a post, approve
+          the private draft, then explicitly ask to publish it here.
         </p>
       ) : (
         <div className="mt-12 flex flex-col divide-y divide-line border-t border-line">
