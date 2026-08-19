@@ -45,6 +45,9 @@ Ask in your own words — you never have to remember these names.
 
 **Building things**
 - **build me a tool** — a calculator, quiz, or form on your site
+- **prototype this idea** — answers one design question with a disposable local demo before anyone buys or connects anything
+- **launch a small app** — turns a proven idea into a separately approved public app, using the simplest suitable hosting and Neon when it truly needs accounts or data
+- **help me understand this** — turns complicated work into a sourced visual decision brief or a training pack
 - **make this better** — improves anything against a standard you set
 - **train my employee** — change how it works, forever
 

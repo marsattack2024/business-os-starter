@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "2.0",
+  "profile": "decision-brief",
+  "title": "Should the RC confirmation format change now?",
+  "subtitle": "A concise approval brief separating live compatibility, future protocol work, and the unproven human-intent boundary.",
+  "mode": "change",
+  "audience": {
+    "role": "Owner approving the protocol alignment PR",
+    "priorKnowledge": ["Uses the current AI connector", "Does not review TypeScript daily"],
+    "participationGoal": "Approve, condition, or reject the RC alignment without risking today's connector"
+  },
+  "sourceScope": {
+    "summary": "Representative repository and plan evidence for the live compatibility lane, proposed RC serialization, and confirmation trust boundary.",
+    "revision": "synthetic regression fixture at working-tree",
+    "generatedAt": "2026-07-20T12:00:00.000Z",
+    "sources": [
+      {
+        "id": "registry",
+        "label": "Authored capability registry",
+        "kind": "repo",
+        "locator": "src/operations/registry.ts",
+        "lines": "20-44",
+        "evidence": "Capabilities are authored once and projected into agent and portal surfaces."
+      },
+      {
+        "id": "server-token",
+        "label": "Server confirmation binding",
+        "kind": "repo",
+        "locator": "src/mcp/confirmation.ts",
+        "lines": "12-98",
+        "evidence": "The server seals action, grant, expiry, and nonce, then verifies binding and single use during resolution."
+      },
+      {
+        "id": "client-boundary",
+        "label": "Client human-interaction boundary",
+        "kind": "repo",
+        "locator": "src/client/confirmation-surface.ts",
+        "lines": "30-81",
+        "evidence": "The client renders confirmation outside model-controlled content, accepts the human interaction, and does not expose the resolution control to model tool calls."
+      },
+      {
+        "id": "alignment-plan",
+        "label": "RC alignment plan",
+        "kind": "document",
+        "locator": "docs/plans/rc-alignment.md",
+        "evidence": "The plan proposes a separate RC serializer and byte-pinned compatibility fixtures."
+      },
+      {
+        "id": "standard",
+        "label": "Ratified protocol shape",
+        "kind": "document",
+        "locator": "references/SEP-2322.md",
+        "evidence": "The standard defines result-level state and keyed request and response maps for the upcoming protocol lane."
+      }
+    ]
+  },
+  "visuals": [
+    {
+      "id": "trust-boundary",
+      "title": "Where human intent enters",
+      "kind": "flow",
+      "teachingGoal": "Separate model request, client rendering, human interaction, and server verification.",
+      "sourceIds": ["server-token", "client-boundary"],
+      "items": [
+        { "id": "model", "label": "Model requests action", "detail": "The model can propose a sensitive operation but cannot directly use the client confirmation control.", "state": "proposal" },
+        { "id": "server", "label": "Server parks and seals", "detail": "The server binds the exact proposal, grant, expiry, and nonce into the request state.", "state": "waiting" },
+        { "id": "client", "label": "Client renders boundary", "detail": "The client presents the prompt outside model-controlled content and waits for user interaction.", "state": "human input" },
+        { "id": "resolve", "label": "Server verifies and resolves", "detail": "The server checks integrity, binding, expiry, replay status, and the returned decision.", "state": "approved or declined" }
+      ],
+      "links": [
+        { "from": "model", "to": "server", "label": "tool call" },
+        { "from": "server", "to": "client", "label": "sealed request" },
+        { "from": "client", "to": "resolve", "label": "human answer" }
+      ]
+    },
+    {
+      "id": "protocol-lanes",
+      "title": "Compatibility and RC are separate decisions",
+      "kind": "comparison",
+      "teachingGoal": "Show why only the version-specific serializer should diverge.",
+      "sourceIds": ["alignment-plan", "standard"],
+      "items": [
+        { "id": "compat", "label": "Compat lane", "detail": "Today's connector keeps its current message bytes and behavior, pinned by fixtures.", "state": "live and frozen" },
+        { "id": "rc", "label": "RC lane", "detail": "The future lane adopts the ratified result and request-map shapes before released clients depend on it.", "state": "planned alignment" }
+      ],
+      "links": []
+    }
+  ],
+  "decisionBrief": {
+    "question": "Should the PR change the RC wire format while freezing today's compatibility output?",
+    "recommendation": "Approve with two conditions: exact SEP conformance on RC and byte-for-byte compatibility fixtures for the live lane.",
+    "rationale": {
+      "title": "The duplication belongs at the serialization boundary",
+      "body": "Separating version-specific message construction protects released clients without duplicating capability policy or execution logic.",
+      "status": "inference",
+      "sourceIds": ["alignment-plan", "standard"]
+    },
+    "currentState": [
+      {
+        "title": "One registry feeds both surfaces",
+        "body": "Agent tools and portal controls derive from one authored capability source.",
+        "status": "observed",
+        "sourceIds": ["registry"]
+      },
+      {
+        "title": "The live lane already serves released clients",
+        "body": "Changing shared message builders would risk altering today's connector responses.",
+        "status": "observed",
+        "sourceIds": ["alignment-plan"]
+      }
+    ],
+    "proposedChange": [
+      {
+        "title": "Fork only the serializers",
+        "body": "Compatibility retains frozen builders while RC receives standard-shaped result and request maps.",
+        "status": "proposed",
+        "sourceIds": ["alignment-plan", "standard"]
+      },
+      {
+        "title": "Leave business behavior shared",
+        "body": "Capability definitions, parking, policy, and resolution remain common beneath the protocol-specific wire layer.",
+        "status": "proposed",
+        "sourceIds": ["registry", "alignment-plan"]
+      }
+    ],
+    "approvalCriteria": [
+      {
+        "criterion": "RC output matches the ratified protocol",
+        "evidenceRequired": "Fixture assertions for result-level state, keyed requests and keyed responses.",
+        "status": "planned",
+        "sourceIds": ["standard", "alignment-plan"]
+      },
+      {
+        "criterion": "Compat output is unchanged",
+        "evidenceRequired": "Byte-level golden tests covering every live confirmation response.",
+        "status": "planned",
+        "sourceIds": ["alignment-plan"]
+      },
+      {
+        "criterion": "Human intent has an explicit boundary",
+        "evidenceRequired": "Client tests prove confirmation renders outside model control and resolution is unavailable as a model-callable action.",
+        "status": "proven",
+        "sourceIds": ["client-boundary", "server-token"]
+      }
+    ],
+    "risks": [
+      {
+        "risk": "Shared builder edits leak into compatibility",
+        "impact": "Released clients receive an unannounced wire-format change.",
+        "mitigation": "Keep policy shared but split serializer functions and pin compat bytes.",
+        "sourceIds": ["alignment-plan"]
+      },
+      {
+        "risk": "Token security is mistaken for proof of human intent",
+        "impact": "The design could overclaim that the model cannot approve.",
+        "mitigation": "Test the client interaction boundary independently from server token integrity.",
+        "sourceIds": ["server-token", "client-boundary"]
+      }
+    ],
+    "openQuestions": [
+      {
+        "question": "What event retires the compatibility serializer?",
+        "whyItMatters": "Temporary duplication becomes permanent unless the migration has an observable exit condition.",
+        "sourceIds": ["alignment-plan"]
+      }
+    ]
+  },
+  "limitations": ["This synthetic fixture tests the artifact contract and renderer, not a live production checkout."]
+}

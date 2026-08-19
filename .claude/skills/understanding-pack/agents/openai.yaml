@@ -1,0 +1,4 @@
+interface:
+  display_name: "Understanding Pack"
+  short_description: "Create a concise decision brief or visual training pack"
+  default_prompt: "Use $understanding-pack to create the smallest source-grounded visual explanation for my next decision or learning task."

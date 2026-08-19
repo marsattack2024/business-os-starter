@@ -14,6 +14,23 @@ An MCP or account connection lets the AI use a service on behalf of the signed-i
 
 Start with read-only discovery. Add write authority only for a named outcome. A successful connection is proven by one smallest useful read, not by seeing a credential on disk.
 
+## Prototypes are not cloud accounts
+
+Use `prototype-an-idea` to answer an uncertain design question locally before
+creating a project, database, login, public URL, or recurring cost. When the
+owner explicitly wants the proven idea online, `launch-a-small-app` owns that
+separate promotion decision.
+
+The launch skill rechecks current provider terms and limits when it runs.
+Business OS currently considers Cloudflare's $0 static tier, within its current
+limits and terms, for a compatible public surface and Neon when the application
+truly needs structured runtime data or authentication.
+It does not preinstall either provider, and it does not treat a free plan as
+permission to create an account, deploy, change DNS, or accept billing terms.
+Vercel Hobby may be considered only when the project qualifies under Vercel's
+current personal and non-commercial terms; it is not the default for a business
+website or application.
+
 ## Optional capabilities are curated
 
 Optional third-party skills are listed in `capabilities/catalog.json`. The catalog pins the installer version, source commit, and exact skill. It does not authorize an automatic install.

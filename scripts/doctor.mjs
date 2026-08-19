@@ -4,6 +4,7 @@ import { join } from "node:path";
 
 const root = join(import.meta.dirname, "..");
 const failures = [];
+const expectedNodeVersion = "24.18.0";
 
 function fail(message) {
   failures.push(message);
@@ -17,11 +18,36 @@ function requirePath(relativePath) {
   if (!existsSync(join(root, relativePath))) fail(`missing ${relativePath}`);
 }
 
+for (const pin of [".nvmrc", ".node-version"]) {
+  requirePath(pin);
+  if (existsSync(join(root, pin)) && read(pin).trim() !== expectedNodeVersion) {
+    fail(`${pin} must pin ${expectedNodeVersion}`);
+  }
+}
+
+const [nodeMajor, nodeMinor] = process.versions.node.split(".").map(Number);
+if (nodeMajor !== 24 || nodeMinor < 18) {
+  fail(`Node ${expectedNodeVersion} or newer in the Node 24 line is required; running ${process.versions.node}`);
+}
+
+try {
+  const rootPackage = JSON.parse(read("package.json"));
+  if (rootPackage.engines?.node !== ">=24.18.0 <25") {
+    fail("package.json must declare the same Node 24 runtime contract");
+  }
+} catch (error) {
+  fail(`package.json is invalid JSON: ${error.message}`);
+}
+
 for (const relativePath of [
   "content/README.md",
   "site/content/README.md",
   "work/README.md",
   "capabilities/catalog.json",
+  "connections/neon.md",
+  "connections/deployments/README.md",
+  "connections/deployments/_template.md",
+  "THIRD_PARTY_NOTICES.md",
   "docs/skills-connections-and-updates.md"
 ]) {
   requirePath(relativePath);

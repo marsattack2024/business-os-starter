@@ -1,0 +1,391 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://business-os.local/schemas/understanding-pack-2.0.json",
+  "title": "Business OS Understanding Pack v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profile",
+    "title",
+    "subtitle",
+    "mode",
+    "audience",
+    "sourceScope",
+    "visuals",
+    "limitations"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "2.0" },
+    "profile": { "enum": ["decision-brief", "training-pack"] },
+    "title": { "$ref": "#/$defs/nonEmptyString" },
+    "subtitle": { "$ref": "#/$defs/nonEmptyString" },
+    "mode": { "enum": ["change", "system", "guided"] },
+    "audience": { "$ref": "#/$defs/audience" },
+    "sourceScope": { "$ref": "#/$defs/sourceScope" },
+    "visuals": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": { "$ref": "#/$defs/visual" }
+    },
+    "decisionBrief": { "$ref": "#/$defs/decisionBrief" },
+    "trainingPack": { "$ref": "#/$defs/trainingPack" },
+    "limitations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "profile": { "const": "decision-brief" } } },
+      "then": {
+        "required": ["decisionBrief"],
+        "not": { "required": ["trainingPack"] },
+        "properties": { "visuals": { "maxItems": 2 } }
+      }
+    },
+    {
+      "if": { "properties": { "profile": { "const": "training-pack" } } },
+      "then": {
+        "required": ["trainingPack"],
+        "not": { "required": ["decisionBrief"] }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "sourceIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "audience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "priorKnowledge", "participationGoal"],
+      "properties": {
+        "role": { "$ref": "#/$defs/nonEmptyString" },
+        "priorKnowledge": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "participationGoal": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "sourceScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "revision", "generatedAt", "sources"],
+      "properties": {
+        "summary": { "$ref": "#/$defs/nonEmptyString" },
+        "revision": { "$ref": "#/$defs/nonEmptyString" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/source" }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "kind", "locator", "evidence"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "label": { "$ref": "#/$defs/nonEmptyString" },
+        "kind": {
+          "enum": ["repo", "diff", "document", "attachment", "url", "runtime", "inference"]
+        },
+        "locator": { "$ref": "#/$defs/nonEmptyString" },
+        "lines": { "type": "string" },
+        "evidence": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "body", "status", "sourceIds"],
+      "properties": {
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "body": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "enum": ["observed", "proposed", "inference", "unknown"] },
+        "sourceIds": { "$ref": "#/$defs/sourceIds" }
+      }
+    },
+    "decisionBrief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "recommendation",
+        "rationale",
+        "currentState",
+        "proposedChange",
+        "approvalCriteria",
+        "risks",
+        "openQuestions"
+      ],
+      "properties": {
+        "question": { "$ref": "#/$defs/nonEmptyString" },
+        "recommendation": { "$ref": "#/$defs/nonEmptyString" },
+        "rationale": { "$ref": "#/$defs/claim" },
+        "currentState": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/claim" }
+        },
+        "proposedChange": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/claim" }
+        },
+        "approvalCriteria": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/approvalCriterion" }
+        },
+        "risks": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/risk" }
+        },
+        "openQuestions": {
+          "type": "array",
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/openQuestion" }
+        }
+      }
+    },
+    "approvalCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion", "evidenceRequired", "status", "sourceIds"],
+      "properties": {
+        "criterion": { "$ref": "#/$defs/nonEmptyString" },
+        "evidenceRequired": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "enum": ["proven", "missing", "planned"] },
+        "sourceIds": { "$ref": "#/$defs/sourceIds" }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["risk", "impact", "mitigation", "sourceIds"],
+      "properties": {
+        "risk": { "$ref": "#/$defs/nonEmptyString" },
+        "impact": { "$ref": "#/$defs/nonEmptyString" },
+        "mitigation": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceIds": { "$ref": "#/$defs/sourceIds" }
+      }
+    },
+    "openQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "whyItMatters", "sourceIds"],
+      "properties": {
+        "question": { "$ref": "#/$defs/nonEmptyString" },
+        "whyItMatters": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceIds": { "$ref": "#/$defs/sourceIds" }
+      }
+    },
+    "trainingPack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "learningObjectives",
+        "background",
+        "intuition",
+        "walkthrough",
+        "edgeCases",
+        "discussionPrompts"
+      ],
+      "properties": {
+        "learningObjectives": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "background": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/claim" }
+        },
+        "intuition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["essence", "example", "sourceIds"],
+          "properties": {
+            "essence": { "$ref": "#/$defs/nonEmptyString" },
+            "example": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["input", "result", "why"],
+              "properties": {
+                "input": { "$ref": "#/$defs/nonEmptyString" },
+                "result": { "$ref": "#/$defs/nonEmptyString" },
+                "why": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            },
+            "sourceIds": { "$ref": "#/$defs/sourceIds" }
+          }
+        },
+        "walkthrough": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 7,
+          "items": { "$ref": "#/$defs/walkthrough" }
+        },
+        "edgeCases": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/edgeCase" }
+        },
+        "discussionPrompts": {
+          "type": "array",
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/discussionPrompt" }
+        },
+        "quiz": { "$ref": "#/$defs/quiz" }
+      }
+    },
+    "visualItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "detail"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "label": { "$ref": "#/$defs/nonEmptyString" },
+        "detail": { "$ref": "#/$defs/nonEmptyString" },
+        "state": { "type": "string" },
+        "command": { "type": "string" }
+      }
+    },
+    "visualLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "$ref": "#/$defs/nonEmptyString" },
+        "to": { "$ref": "#/$defs/nonEmptyString" },
+        "label": { "type": "string" }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "kind", "teachingGoal", "sourceIds", "items", "links"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "kind": { "enum": ["flow", "comparison", "state-timeline", "mapping", "guided-steps"] },
+        "teachingGoal": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceIds": { "$ref": "#/$defs/sourceIds" },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "items": { "$ref": "#/$defs/visualItem" }
+        },
+        "links": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/visualLink" }
+        }
+      }
+    },
+    "walkthrough": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sequence", "title", "whyNow", "sourceId", "location", "explanation", "consequence", "checkpoints"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "sequence": { "type": "integer", "minimum": 1 },
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "whyNow": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceId": { "$ref": "#/$defs/nonEmptyString" },
+        "location": { "$ref": "#/$defs/nonEmptyString" },
+        "language": { "type": "string" },
+        "code": { "type": "string" },
+        "explanation": { "$ref": "#/$defs/nonEmptyString" },
+        "consequence": { "$ref": "#/$defs/nonEmptyString" },
+        "checkpoints": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      }
+    },
+    "edgeCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scenario", "behavior", "why", "sourceIds"],
+      "properties": {
+        "scenario": { "$ref": "#/$defs/nonEmptyString" },
+        "behavior": { "$ref": "#/$defs/nonEmptyString" },
+        "why": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceIds": { "$ref": "#/$defs/sourceIds" }
+      }
+    },
+    "discussionPrompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prompt", "why"],
+      "properties": {
+        "prompt": { "$ref": "#/$defs/nonEmptyString" },
+        "why": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "quiz": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instructions", "questions"],
+      "properties": {
+        "instructions": { "$ref": "#/$defs/nonEmptyString" },
+        "questions": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/question" }
+        }
+      }
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "rationale"],
+      "properties": {
+        "label": { "$ref": "#/$defs/nonEmptyString" },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "prompt", "supportingClaim", "reviewTarget", "options", "correctIndex", "sourceIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "prompt": { "$ref": "#/$defs/nonEmptyString" },
+        "supportingClaim": { "$ref": "#/$defs/nonEmptyString" },
+        "reviewTarget": {
+          "type": "string",
+          "pattern": "^(foundation|edges|visual:[A-Za-z][A-Za-z0-9_-]*|walkthrough:[A-Za-z][A-Za-z0-9_-]*)$"
+        },
+        "options": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "$ref": "#/$defs/option" }
+        },
+        "correctIndex": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "sourceIds": { "$ref": "#/$defs/sourceIds" }
+      }
+    }
+  }
+}

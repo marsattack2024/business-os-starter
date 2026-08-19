@@ -7,6 +7,12 @@ description: Build a small working tool for the business — a calculator, quiz,
 
 A small working thing on the owner's website: a price calculator, a quiz, an intake form, a booking helper. It lives inside their existing site, so there's nothing new to host and nothing new to learn.
 
+If the owner is still choosing how the idea should work, use
+`prototype-an-idea` first. If the proven idea must become a separate public
+application or genuinely needs accounts or persistent data, finish the local
+version here and use `launch-a-small-app` as a separate, explicitly approved
+promotion task.
+
 ## Read first
 
 - `context/rules.md` — what this business may never claim or do. These rules beat anything below.
@@ -28,9 +34,11 @@ A small working thing on the owner's website: a price calculator, a quiz, an int
    - Reuse the colors and spacing from the existing site — a tool that looks bolted on gets ignored
    - Comment each part the way `site/app/page.tsx` does, so the owner can change the numbers later without asking anyone
 
-4. No database, no accounts, no payments in the first version. If the tool needs to remember something or take money, build the version that doesn't, show it, and then talk about what connecting it would take.
+4. No database, no accounts, no payments in the first version. If the tool needs to remember something or take money, build the version that doesn't, show it, and then route a separately requested production version through `launch-a-small-app`.
 
-5. Run `cd site && npm run build`. It must pass.
+5. From the repository root, run `npm run check`. It owns the site install,
+   tests, production build, and private/public build-boundary proof. Report the
+   actual result; a site build alone is not the completion gate.
 
 6. Have the owner try it while you watch. Give them three inputs to test, including a silly one. Fix what breaks.
 
@@ -45,7 +53,7 @@ owner tried it, and the numbers it uses so the owner can change them later.
 
 ## Done when
 
-- `npm run build` passes.
+- The repository-root `npm run check` passes.
 - The owner has used it themselves and it did the right thing.
 - The note in `content/` says the local route and how to change its numbers.
 - No deploy or hosting account changed without a separate explicit request.

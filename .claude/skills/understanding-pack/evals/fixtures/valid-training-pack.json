@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "2.0",
+  "profile": "training-pack",
+  "title": "How a validated explanation reaches a learner",
+  "subtitle": "A focused training fixture covering evidence, rendering, interaction, and review.",
+  "mode": "system",
+  "audience": {
+    "role": "Business OS employee",
+    "priorKnowledge": ["Can navigate repository files"],
+    "participationGoal": "Review an explanation pack and identify the correct layer for a safe improvement"
+  },
+  "sourceScope": {
+    "summary": "The skill designs the lesson, the validator checks its contract, and the renderer presents it without executing source content.",
+    "revision": "working-tree v2 fixture",
+    "generatedAt": "2026-07-20T12:00:00.000Z",
+    "sources": [
+      { "id": "skill", "label": "Understanding Pack skill", "kind": "repo", "locator": ".claude/skills/understanding-pack/SKILL.md", "evidence": "Defines profile selection, evidence collection, visual design, and browser proof." },
+      { "id": "contract", "label": "Output contract", "kind": "repo", "locator": ".claude/skills/understanding-pack/references/output-contract.md", "evidence": "Defines decision and training shapes, density limits, quiz evidence, and source links." },
+      { "id": "renderer", "label": "Renderer", "kind": "repo", "locator": ".claude/skills/understanding-pack/scripts/render-understanding-pack.mjs", "evidence": "Escapes authored data and renders distinct visuals, navigation, and quiz feedback." }
+    ]
+  },
+  "visuals": [
+    {
+      "id": "artifact-pipeline",
+      "title": "Three layers, three responsibilities",
+      "kind": "mapping",
+      "teachingGoal": "Map each concern to the layer that owns it.",
+      "sourceIds": ["skill", "contract", "renderer"],
+      "items": [
+        { "id": "author", "label": "Skill", "detail": "Selects the reader, profile, evidence, and teaching strategy.", "state": "method" },
+        { "id": "validate", "label": "Validator", "detail": "Rejects broken structure, source links, excessive length, and invalid quiz targets.", "state": "contract" },
+        { "id": "present", "label": "Renderer", "detail": "Turns trusted data into a responsive visual document with bounded local interaction.", "state": "presentation" }
+      ],
+      "links": []
+    }
+  ],
+  "trainingPack": {
+    "learningObjectives": [
+      "Explain the separate jobs of the skill, validator, and renderer",
+      "Choose the correct layer for a teaching or presentation change",
+      "Verify that quiz feedback returns a learner to supporting evidence"
+    ],
+    "background": [
+      { "title": "JSON is the reviewable source", "body": "Authored content and evidence live in structured data; the HTML shell is deterministic output.", "status": "observed", "sourceIds": ["contract", "renderer"] }
+    ],
+    "intuition": {
+      "essence": "The skill chooses what to teach, validation protects the agreement, and rendering makes relationships visible.",
+      "example": {
+        "input": "An owner asks whether a protocol PR is safe to approve.",
+        "result": "The skill selects a concise decision brief with approval evidence instead of a full employee course.",
+        "why": "Matching the artifact to the next job removes repetition while preserving traceability."
+      },
+      "sourceIds": ["skill", "contract"]
+    },
+    "walkthrough": [
+      { "id": "choose-profile", "sequence": 1, "title": "Choose the reader's next job", "whyNow": "Scope controls every later choice.", "sourceId": "skill", "location": ".claude/skills/understanding-pack/SKILL.md", "explanation": "Approval selects a decision brief; onboarding or operational learning selects a training pack.", "consequence": "The artifact no longer forces identical sections on owners and employees.", "checkpoints": ["Name the decision or operation before drafting"] },
+      { "id": "map-evidence", "sequence": 2, "title": "Connect each claim to evidence", "whyNow": "A concise artifact still needs defensible claims.", "sourceId": "contract", "location": ".claude/skills/understanding-pack/references/output-contract.md", "explanation": "Current behavior, proposals, inferences, and unknowns receive explicit labels and source references.", "consequence": "The reader can challenge a claim without searching the entire repository.", "checkpoints": ["Do not turn missing proof into confident prose"] },
+      { "id": "render-and-test", "sequence": 3, "title": "Render distinct visual forms and exercise them", "whyNow": "Structural validation cannot prove usability.", "sourceId": "renderer", "location": ".claude/skills/understanding-pack/scripts/render-understanding-pack.mjs", "explanation": "The renderer uses separate flow, comparison, timeline, mapping, and guided-step layouts, then browser checks confirm their controls.", "consequence": "A tabbed text inventory can no longer masquerade as every kind of figure.", "checkpoints": ["Check mobile navigation", "Check incomplete, correct, incorrect, and reset quiz states"] }
+    ],
+    "edgeCases": [
+      { "scenario": "A quiz cites evidence but links to no teaching passage", "behavior": "Validation rejects the missing review target.", "why": "Feedback should return the learner to the explanation that supports the answer.", "sourceIds": ["contract", "renderer"] }
+    ],
+    "discussionPrompts": [],
+    "quiz": {
+      "instructions": "Answer all three questions. Checking marks the correct choice, explains it, and links back to the relevant passage.",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "Which profile fits an owner deciding whether to approve one PR?",
+          "supportingClaim": "An approval decision uses the decision-brief profile.",
+          "reviewTarget": "walkthrough:choose-profile",
+          "options": [
+            { "label": "Decision brief", "rationale": "Correct. It leads with the decision, proof, risks, and open questions." },
+            { "label": "Training pack", "rationale": "Training is for operating, onboarding, or teaching the workflow." },
+            { "label": "Guided mode", "rationale": "Guided is an evidence mode, not the output profile." },
+            { "label": "Raw source map", "rationale": "Traceability supports the brief but does not replace the explanation." }
+          ],
+          "correctIndex": 0,
+          "sourceIds": ["skill"]
+        },
+        {
+          "id": "q2",
+          "prompt": "Where should a contributor change how a flow is visually drawn?",
+          "supportingClaim": "Presentation behavior belongs to the deterministic renderer.",
+          "reviewTarget": "visual:artifact-pipeline",
+          "options": [
+            { "label": "In every generated HTML file", "rationale": "Generated HTML is disposable output." },
+            { "label": "In the renderer", "rationale": "Correct. The renderer owns trusted markup and interaction." },
+            { "label": "In source evidence", "rationale": "Evidence describes behavior; it does not own presentation." },
+            { "label": "In the quiz answer", "rationale": "Quiz content tests the model but does not draw diagrams." }
+          ],
+          "correctIndex": 1,
+          "sourceIds": ["renderer"]
+        },
+        {
+          "id": "q3",
+          "prompt": "What should happen when a learner has answered only two of three questions?",
+          "supportingClaim": "Incomplete quizzes reveal no answers and keep checking disabled.",
+          "reviewTarget": "walkthrough:render-and-test",
+          "options": [
+            { "label": "Show the correct answers immediately", "rationale": "That compromises retrieval practice before the learner commits." },
+            { "label": "Score the answered subset", "rationale": "A partial score changes the meaning of the check." },
+            { "label": "Keep checking disabled and reveal nothing", "rationale": "Correct. Feedback appears only after every selection exists." },
+            { "label": "Submit the result to the server", "rationale": "The artifact stores and transmits no quiz results." }
+          ],
+          "correctIndex": 2,
+          "sourceIds": ["renderer", "contract"]
+        }
+      ]
+    }
+  },
+  "limitations": ["This fixture verifies the local artifact shell, not every browser version used by employees."]
+}
