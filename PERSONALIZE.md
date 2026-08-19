@@ -1,6 +1,6 @@
 # PERSONALIZE.md — the Thursday pipeline
 
-**Operator file. Not for students.** Delete it from each student's copy (step 9 below).
+**Operator file. Not for students.** Delete it from each student's copy (step 10 below).
 
 One pass per student, working from the template plus their intake row. Budget 30–40 minutes each the first time, 15 after that. Do them one at a time and finish each one completely — a half-personalized repo is worse than an unmodified template, because the student can't tell which parts are about them.
 
@@ -64,7 +64,7 @@ grep -rn '{{[A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' .
 
 ### Site
 
-Tokens live in `site/app/page.tsx` (the page copy), `site/app/layout.tsx` (the browser tab title), and `site/README.md`. Write real copy drafted from context, not placeholder text — bar is "shockingly decent," not "finished."
+Tokens live in `site/app/page.tsx` (the page copy), `site/app/layout.tsx` (the browser tab title), `site/app/blog/layout.tsx` (the bar above and below every blog page — `{{BUSINESS_NAME}}`, twice), and `site/README.md`. Write real copy drafted from context, not placeholder text — bar is "shockingly decent," not "finished."
 
 | Token | Filled from |
 |---|---|
@@ -128,7 +128,48 @@ Then fix the three pointers to `offer.md` so nothing points at a deleted file:
 
 Skills need no other changes. `write-email`, `write-content`, and `good-morning` work identically for a role.
 
-## 5. Install and build the site
+## 5. Name the client folder, or delete it
+
+The template ships a `clients/` folder: a `README.md` and a `_template/` with
+`context.md` and `rules.md`. It exists so per-entity work has somewhere to go
+before they need it. It is structure only — no skills, no automation.
+
+**Decision rule, from Q5a/Q6a/Q6b — does their work come in named, repeating
+units a customer would recognize?** If yes, rename the folder to their word
+for that unit. If no, delete it.
+
+| Their work | Folder |
+|---|---|
+| Legal, accounting, insurance, anything with a matter number | `cases/` |
+| Agency, consulting, bookkeeping, marketing, any retainer | `clients/` (leave it) |
+| Trades, contracting, install, repair, field service | `jobs/` |
+| Design, dev, events, anything quoted per piece of work | `projects/` |
+| Creators, e-commerce, courses, restaurants, retail | delete it |
+
+Rename (swap `cases` for whichever word applies):
+
+```bash
+mv clients cases
+sed -i '' 's/clients\//cases\//g; s/client/case/g' AGENTS.md README.md cases/README.md
+```
+
+(Plain `mv`, not `git mv` — there's no git repo yet at this point. Step 1 deleted it and step 9 recreates it.)
+
+Or delete:
+
+```bash
+rm -rf clients
+```
+
+Then skim `AGENTS.md` § "Working for a specific …" once. The swap reads
+cleanly for all four words, but it's a 20-second check worth doing.
+
+If you deleted the folder, delete that whole section from `AGENTS.md` and the
+`clients/` row from `README.md` as well. A section pointing at a folder that
+isn't there is exactly the kind of thing that makes a student stop trusting
+the repo.
+
+## 6. Install and build the site
 
 ```bash
 cd site && npm install && npm run build && cd ..
@@ -136,30 +177,31 @@ cd site && npm install && npm run build && cd ..
 
 Both must pass. Leave `node_modules/` in place — Friday's venue wifi is not a dependency you want.
 
-## 6. Smoke test — the real gate
+## 7. Smoke test — the real gate
 
-In the student's repo folder, open Codex and run these four. Do not skip it because the files "look right."
+In the student's repo folder, open Codex and run these five. Do not skip it because the files "look right."
 
 1. **`good-morning`** — does it name their business, their North Star, and suggest three moves that are actually about them? Generic advice here means a context file is thin. Fix the file, not the answer.
 2. **`update-website`** — ask for one word change on the homepage. Confirm `npm run build` still passes.
 3. **`npm run dev`** in `site/`, open `http://localhost:3000` — the homepage looks like their business, no `{{TOKENS}}` visible on screen.
-4. **`grep -rn '{{' --include='*.md' --include='*.tsx' . | grep -v '.claude/skills/'`** returns nothing.
+4. **`write a blog post`** — with `npm run dev` still running, ask for a short post. It should appear under "Latest writing" on the homepage and at `http://localhost:3000/blog` within a second or two, and the post itself should open. This is the Friday demo; if it doesn't work here it won't work on stage.
+5. **`grep -rn '{{' --include='*.md' --include='*.tsx' . | grep -v '.claude/skills/'`** returns nothing.
 
-Then delete anything the smoke test created in `content/` so their repo starts empty.
+Then empty `content/` so their repo starts clean — everything the smoke test made, **plus the shipped `2026-08-22-blog-example-post.md`**. That example is there to demo the loop on a fresh template; a student's real site should not launch with it.
 
-## 7. Per-student checklist
+## 8. Per-student checklist
 
-Copy this per student. Nobody ships without all nine.
+Copy this per student. Nobody ships without all ten.
 
 ```
-[ ] 1 repo copied + renamed        [ ] 6 smoke test: good-morning names them
-[ ] 2 enriched from site/socials   [ ] 7 smoke test: site builds + looks right
-[ ] 3 all tokens filled            [ ] 8 no {{ tokens left
-[ ] 4 track correct (owner/emp)    [ ] 9 pushed + invite sent
-[ ] 5 npm install + build pass
+[ ] 1 repo copied + renamed        [ ] 6 npm install + build pass
+[ ] 2 enriched from site/socials   [ ] 7 smoke test: good-morning names them
+[ ] 3 all tokens filled            [ ] 8 smoke test: site + blog post appear
+[ ] 4 track correct (owner/emp)    [ ] 9 no {{ tokens left, content/ empty
+[ ] 5 client folder named/deleted  [ ] 10 pushed + invite sent
 ```
 
-## 8. Git and GitHub
+## 9. Git and GitHub
 
 ```bash
 cd ~/Documents/GitHub/firstname-business-os
@@ -174,7 +216,7 @@ If Q14 came back as "I promise I'll create one" and they still haven't, chase it
 
 **End-of-day ceremony:** transfer each repo to the student's own account. Settings → General → Transfer ownership. That's the "it's yours now" beat — don't do it Thursday.
 
-## 9. Last step
+## 10. Last step
 
 ```bash
 rm PERSONALIZE.md

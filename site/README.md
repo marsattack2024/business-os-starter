@@ -37,9 +37,10 @@ file, the page in your browser updates by itself within a second or two.
 
 Open **`app/page.tsx`**.
 
-That one file is your whole homepage. It is split into six labeled
-sections — header, hero, services, proof, call to action, footer — and each
-one has a plain-English note above it telling you what it does.
+That one file is your whole homepage. It is split into seven labeled
+sections — header, hero, services, proof, latest writing, call to action,
+footer — and each one has a plain-English note above it telling you what it
+does.
 
 Look for placeholders in double curly braces, like `{{HERO_HEADLINE}}`.
 Replace the placeholder with your own words and keep the quote marks:
@@ -50,6 +51,27 @@ after:   {"Wedding photography in Austin, without the stress"}
 ```
 
 Save the file and look at your browser.
+
+## Your blog writes itself onto the site
+
+You do not add blog posts in `page.tsx`. Ask your employee to write a post; it
+saves the post as a file in the `content/` folder at the top of this project,
+and your site puts it up on its own — on the homepage under "Latest writing"
+and at `http://localhost:3000/blog`.
+
+One line decides it. Every post file starts with a small block like this:
+
+```
+---
+title: Why most quotes go cold
+date: 2026-08-22
+published: true
+---
+```
+
+`published: true` means it's on your site. Change it to `false` and the post
+comes off. The other files in `content/` — your emails, plans and notes — have
+no such line, so your website ignores them.
 
 ## Change your colors
 

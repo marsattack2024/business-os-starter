@@ -1,15 +1,16 @@
 // ============================================================
 // THIS IS YOUR HOMEPAGE. THE WHOLE THING. ONE FILE.
 //
-// It is split into six sections, top to bottom, in the same order
+// It is split into seven sections, top to bottom, in the same order
 // they appear on the screen:
 //
 //   1. HEADER    your business name at the top
 //   2. HERO      the big headline visitors see first
 //   3. SERVICES  three boxes describing what you do
 //   4. PROOF     a quote from a happy customer
-//   5. CALL TO ACTION  the final "get in touch" block
-//   6. FOOTER    your name, email and the year
+//   5. LATEST WRITING  your three newest blog posts
+//   6. CALL TO ACTION  the final "get in touch" block
+//   7. FOOTER    your name, email and the year
 //
 // HOW TO CHANGE THE WORDS
 // Look for the placeholders in double curly braces, like
@@ -25,7 +26,13 @@
 // Colors are not in this file. They live in app/globals.css.
 // ============================================================
 
+import { formatDate, getPosts } from "@/lib/posts";
+
 export default function Home() {
+  // Your three newest published posts. If you have not published
+  // anything yet, section 5 below hides itself.
+  const posts = getPosts().slice(0, 3);
+
   return (
     <main>
       {/* ================= 1. HEADER =================
@@ -130,7 +137,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= 5. CALL TO ACTION =================
+      {/* ================= 5. LATEST WRITING =================
+          Your three newest blog posts, with a link to the full
+          list at /blog.
+
+          You do not type posts in here. Ask your employee to
+          "write a blog post" — it saves the post into the
+          content folder at the top of this project, and this
+          section picks it up.
+
+          Nothing published yet? This whole block disappears on
+          its own, so the page never looks unfinished.
+      ====================================================== */}
+      {posts.length > 0 && (
+        <section className="mx-auto max-w-5xl px-6 py-20 sm:py-24">
+          <div className="flex items-baseline justify-between gap-6">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Latest writing
+            </h2>
+            <a
+              href="/blog"
+              className="text-sm text-muted transition-colors hover:text-brand"
+            >
+              All posts
+            </a>
+          </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <a
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group rounded-soft border border-line bg-card p-7 transition-colors hover:border-brand"
+              >
+                {post.date && (
+                  <p className="text-sm text-muted">{formatDate(post.date)}</p>
+                )}
+                <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-brand">
+                  {post.title}
+                </h3>
+                {post.summary && (
+                  <p className="mt-3 leading-relaxed text-muted">
+                    {post.summary}
+                  </p>
+                )}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ================= 6. CALL TO ACTION =================
           The last thing visitors read before they leave.
           One headline and one button. Ask for the thing you
           actually want them to do.
@@ -152,7 +209,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= 6. FOOTER =================
+      {/* ================= 7. FOOTER =================
           The bottom of the page: your business name, your email,
           and the year.
 

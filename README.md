@@ -18,7 +18,8 @@ That's the whole habit. Your employee reads up on your business, looks at what y
 | `context/` | What your employee **knows** — your business, customers, offer, voice, goals. Open these files; they're plain English. Correcting them makes your employee smarter. |
 | `.claude/skills/` | What your employee **can do** — each skill is a short readable file. Edit one and the behavior changes forever. |
 | `site/` | Your website. See `site/README.md` for the two commands. |
-| `content/` | Everything your employee **makes** — dated, in Finder, yours. |
+| `content/` | Everything your employee **makes** — dated, in Finder, yours. Blog posts saved here appear on your website by themselves; see `content/README.md`. |
+| `clients/` | One folder per client — the background your employee needs for that one customer, kept apart from the rest. See `clients/README.md`. |
 | `inbox/` | Drop any file here (a price list, a brochure, meeting notes), then say **"read my inbox"** — your employee studies it and updates what it knows. |
 
 ## What your employee can do

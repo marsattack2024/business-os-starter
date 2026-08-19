@@ -21,6 +21,8 @@ The owner describes what they want in their own words. You make the smallest cha
 
    If a request needs a section that doesn't exist yet, say so plainly and ask if they want you to add one.
 
+   **Blog posts are the exception.** The homepage "Latest writing" section, the `/blog` list, and each post page are built from the files in `content/` — you never type a post into `page.tsx`. A post appears when its file starts with `published: true`, and comes off the site when that says `false`. If the owner asks why a post isn't showing, open its file in `content/` and check that line first.
+
 2. Make the change. Keep the section comments intact — they're how the owner finds their way around this file. If you add a section, give it a comment block in the same style.
 
 3. Check it still runs: `cd site && npm run build`. If it fails, read the error, fix it, and run it again. Never hand back a site that doesn't build.

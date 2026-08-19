@@ -42,3 +42,104 @@
      0px is square. 24px is very round. */
   --radius-soft: 12px;
 }
+
+/* ============================================================
+   HOW A BLOG POST READS
+
+   Your posts are written as plain text and turned into a page
+   automatically, so their headings, paragraphs and lists are
+   styled here rather than in the page files.
+
+   They already use your colors from above. You can leave this
+   whole block alone.
+   ============================================================ */
+
+.post-body {
+  color: var(--color-ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.post-body > * + * {
+  margin-top: 1.25em;
+}
+
+.post-body h2 {
+  margin-top: 2.25em;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.post-body h3 {
+  margin-top: 2em;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.post-body a {
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+.post-body strong {
+  font-weight: 600;
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 1.4em;
+}
+
+.post-body ul {
+  list-style: disc;
+}
+
+.post-body ol {
+  list-style: decimal;
+}
+
+.post-body li + li {
+  margin-top: 0.4em;
+}
+
+.post-body blockquote {
+  border-left: 3px solid var(--color-brand);
+  padding-left: 1.1em;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.post-body hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin-top: 2.5em;
+}
+
+.post-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-soft);
+}
+
+.post-body code {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.9em;
+}
+
+.post-body pre {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-soft);
+  padding: 1.1em;
+  overflow-x: auto;
+}
+
+.post-body pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
