@@ -1,0 +1,44 @@
+/* ============================================================
+   YOUR LOOK AND FEEL LIVES HERE
+
+   This is the only file you need for colors, fonts and corners.
+   Change a value below, save the file, and the whole site changes.
+
+   Colors are written as hex codes (like #2F6FED).
+   You can get a hex code from any color picker on the web.
+   ============================================================ */
+
+@import "tailwindcss";
+
+@theme {
+  /* --color-brand: your main color. Buttons and links use it. */
+  --color-brand: #2f6fed;
+
+  /* --color-brand-dark: a darker version of your main color.
+     Buttons turn this color when someone hovers over them. */
+  --color-brand-dark: #1f4fc4;
+
+  /* --color-ink: the color of your headlines and main text. */
+  --color-ink: #14161d;
+
+  /* --color-muted: the softer grey used for supporting sentences. */
+  --color-muted: #5b6270;
+
+  /* --color-page: the background color of the whole page. */
+  --color-page: #fbfaf8;
+
+  /* --color-card: the background color of the three service boxes. */
+  --color-card: #ffffff;
+
+  /* --color-line: the color of the thin dividing lines and box edges. */
+  --color-line: #e7e4de;
+
+  /* --font-sans: the font for everything.
+     The browser uses the first font on this list that it has. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  /* --radius-soft: how rounded the corners are on buttons and boxes.
+     0px is square. 24px is very round. */
+  --radius-soft: 12px;
+}

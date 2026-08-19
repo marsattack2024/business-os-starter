@@ -1,0 +1,25 @@
+# Things that don't belong on GitHub.
+# You can ignore this file — it just keeps your repo clean and your keys private.
+
+# Keys and passwords for connected accounts. Never goes to GitHub.
+.env
+.env.local
+.env*.local
+
+# Downloaded code for the website. Rebuilt by `npm install`.
+node_modules/
+site/node_modules/
+
+# Built website files. Rebuilt by `npm run build`.
+.next/
+site/.next/
+out/
+site/out/
+.vercel
+
+# Mac and editor clutter
+.DS_Store
+*.log
+npm-debug.log*
+.idea/
+.vscode/
