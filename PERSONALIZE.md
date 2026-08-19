@@ -36,6 +36,8 @@ grep -rn '{{[A-Z][A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.c
   --exclude-dir='.claude' --exclude-dir='node_modules' --exclude-dir='.next' .
 ```
 
+When every token is filled, **strip the operator notes**: every `context/` file opens with an `<!-- PIPELINE: ... -->` comment addressed to you, not the student. Delete every one — README tells students these files are plain English, and the first thing they'd read is a note about intake question numbers they never saw. The gate in step 7 now checks.
+
 ### Context and docs
 
 | Token | Filled from | Lives in |
@@ -86,7 +88,8 @@ Colors: set the brand color in the `@theme` block of `site/app/globals.css` to s
 
 ## 4. Employee track (Q3 = "I work in someone else's business")
 
-Only if Q3 says employee. Keep every shared context contract and add two files:
+Only if Q3 says employee. Keep every shared context contract, repurpose
+`context/offer.md` for the company offer, and add two files:
 
 **`context/role.md`** — what they're responsible for:
 
@@ -177,6 +180,14 @@ In the student's repo folder, open Codex and run these five. Do not skip it beca
      --exclude-dir='.next' .
    ```
 
+This also returns nothing (operator notes were stripped from student files):
+
+```bash
+grep -rn 'PIPELINE' --include='*.md' --include='*.tsx' \
+  --exclude='PERSONALIZE.md' --exclude-dir='.claude' --exclude-dir='node_modules' \
+  --exclude-dir='.next' .
+```
+
 Delete the smoke-test draft and public copy afterward. Remove or rewrite the
 shipped example in `site/content/`; a personalized site must not launch with a
 generic example attributed to the owner.
@@ -189,7 +200,7 @@ Copy this per student. Nobody ships without all ten.
 [ ] 1 repo copied + renamed        [ ] 6 npm install + build pass
 [ ] 2 enriched from site/socials   [ ] 7 smoke test: good-morning names them
 [ ] 3 all tokens filled            [ ] 8 draft private; approved post public
-[ ] 4 track correct (owner/emp)    [ ] 9 no {{ tokens left, content/ empty
+[ ] 4 track correct (owner/emp)    [ ] 9 no {{ or PIPELINE left; drafts clean
 [ ] 5 work-item label confirmed    [ ] 10 pushed + invite sent
 ```
 

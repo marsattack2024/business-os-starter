@@ -67,8 +67,9 @@ From the temporary observations, report only:
 When a lesson is durable and the owning instruction is obvious, update that
 skill, rule, test, or document now and verify it. Otherwise record it once in a
 substantial project wrap-up note under `content/`; do not create a permanent
-lesson file for routine noise. After useful points are captured, clear the
-gitignored `.session-observations.md` scratch file.
+lesson file for routine noise. Clear `.session-observations.md` only when this
+session created it or its owner and contents are confirmed fully absorbed.
+Otherwise preserve it and name that fact in the report.
 
 ## Final report
 

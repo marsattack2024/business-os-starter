@@ -185,6 +185,7 @@ test("wrap-up captures friction and local hygiene without becoming a blocking cl
   assert.match(wrap, /git worktree list/);
   assert.match(wrap, /efficien|friction|rework/i);
   assert.match(wrap, /never delete|do not delete/i);
+  assert.match(wrap, /only when this session created|confirmed fully absorbed/i);
   assert.match(wrap, /npm run check/);
   assert.match(wrap, /when .*code|if .*code|only .*code/i);
 });
