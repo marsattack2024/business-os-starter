@@ -1,7 +1,5 @@
 # What {{BUSINESS_NAME}} Sells
 
-<!-- PIPELINE: fill from intake Q7 + website enrichment. Exact names and prices — this file is the source of truth for anything the employee writes about pricing. EMPLOYEE TRACK: replace this file with role.md + company.md per PERSONALIZE.md. -->
-
 ## Offers
 
 {{OFFERS_AND_PRICING}}

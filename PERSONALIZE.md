@@ -32,7 +32,8 @@ Over-delivery lives here. Their context files should know things they never type
 Search the repo for `{{` and work the list down. Skills legitimately contain `{{TOKENS}}` and `{{LIKE_THIS}}` as prose examples — skip `.claude/skills/`:
 
 ```bash
-grep -rn '{{[A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' . | grep -v '.claude/skills/'
+grep -rn '{{[A-Z][A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' \
+  --exclude-dir='.claude' --exclude-dir='node_modules' --exclude-dir='.next' .
 ```
 
 ### Context and docs
@@ -54,11 +55,13 @@ grep -rn '{{[A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' .
 | `{{OFFERS_AND_PRICING}}` | Q7a, exact names and prices | context/offer.md |
 | `{{PRIMARY_OFFER}}` | Q7a + Q11 — the one that moves their North Star | context/offer.md |
 | `{{VOICE_SAMPLE}}` | Q10, **verbatim, untouched** | context/voice.md |
-| `{{VOICE_RULE_1..3}}` | distilled from Q10 + their posts | context/voice.md |
+| `{{VOICE_RULE_1}}`, `{{VOICE_RULE_2}}`, `{{VOICE_RULE_3}}` | distilled from Q10 + their posts | context/voice.md |
 | `{{NEVER_RULE_1}}` | leave as `Ask me.` — `onboard-me` fills it Friday | context/voice.md |
 | `{{NORTH_STAR}}` | Q11, **verbatim** — this gets quoted back at the $99 close | context/goals.md |
 | `{{FIRST_JOB}}` | Q12 | context/goals.md, README.md |
 | `{{SUGGESTION_1}}`, `{{SUGGESTION_2}}` | Q12, Q13, and anything obvious from enrichment | context/goals.md |
+| `{{EXTRA_CLAIM_RULES}}` | Business-specific claims that are unsupported or forbidden; use `- None beyond the universal rules.` when confirmed | context/rules.md |
+| `{{REGULATED_RULES}}` | Rules confirmed by the owner or their qualified adviser; never invent legal/compliance requirements | context/rules.md |
 
 `context/gtm.md` stays empty. `launch-gtm` fills it live Friday morning — that's the block-2 wow, and a pre-filled file kills it.
 
@@ -71,21 +74,19 @@ Tokens live in `site/app/page.tsx` (the page copy), `site/app/layout.tsx` (the b
 | `{{TAGLINE}}` | one line under the business name |
 | `{{HERO_HEADLINE}}` | their offer's promise, in their words |
 | `{{HERO_SUBTEXT}}` | one sentence — who it's for and what they get |
-| `{{CTA_LABEL}}` / `{{CTA_LINK}}` | "Book a call" / their booking link or `mailto:` |
-| `{{SERVICE_1..3_TITLE}}` / `{{SERVICE_1..3_TEXT}}` | Q7a offers |
+| `{{CTA_LABEL}}` / `{{CTA_LINK}}` | A label plus the owner's explicit public booking/intake URL. If none exists, remove the CTA rather than inventing one. |
+| `{{SERVICE_1_TITLE}}`, `{{SERVICE_2_TITLE}}`, `{{SERVICE_3_TITLE}}` | Exact offer/service names from Q7a |
+| `{{SERVICE_1_TEXT}}`, `{{SERVICE_2_TEXT}}`, `{{SERVICE_3_TEXT}}` | Specific customer-facing descriptions supported by context |
 | `{{TESTIMONIAL_QUOTE}}` / `{{TESTIMONIAL_NAME}}` | a real review. None? Delete the whole Proof section. |
 | `{{CLOSING_HEADLINE}}` | the ask, once more |
-| `{{CONTACT_EMAIL}}` | Q2 |
+| `{{PUBLIC_CONTACT_EMAIL}}` | An address the owner explicitly approves for the public website. Q2 is an intake/contact answer, not automatic publication permission. If none is approved, remove the public email block. |
+| `{{LEGAL_NOTICE}}` | Owner-confirmed public legal, licensing, jurisdiction, or advertising notice; use an empty string only when the owner confirms none is required. |
 
 Colors: set the brand color in the `@theme` block of `site/app/globals.css` to something from their existing brand. One hex change, big perceived effort.
 
 ## 4. Employee track (Q3 = "I work in someone else's business")
 
-Only if Q3 says employee. Two swaps:
-
-```bash
-rm context/offer.md
-```
+Only if Q3 says employee. Keep every shared context contract and add two files:
 
 **`context/role.md`** — what they're responsible for:
 
@@ -122,7 +123,10 @@ rm context/offer.md
 {{WHERE_I_FIT}}
 ```
 
-**Do NOT delete `context/offer.md`.** Fourteen skills read it — including `launch-gtm` and `update-website`, two of Friday's demos. Deleting it breaks block 2 for that student. Instead, **repurpose it**: on the employee track, `offer.md` describes what the *company* sells (the thing this person's work supports), with a first line saying so. Then add `role.md` and `company.md` alongside it.
+**Keep `context/offer.md`.** Shared skills read it. On the employee track,
+`offer.md` describes what the *company* sells (the thing this person's work
+supports), with a first line saying so. Then add `role.md` and `company.md`
+alongside it.
 
 Then add the two new files to the pointers:
 - `AGENTS.md` — "Before every task" list gains `context/role.md` and `context/company.md`
@@ -130,48 +134,20 @@ Then add the two new files to the pointers:
 
 No skill deletions, no other edits. `write-email`, `write-content`, and `good-morning` work identically for a role.
 
-## 5. Name the client folder, or delete it
+## 5. Set the work-item language
 
-The template ships a `clients/` folder: a `README.md` and a `_template/` with
-`context.md` and `rules.md`. It exists so per-entity work has somewhere to go
-before they need it. It is structure only — no skills, no automation.
+The filesystem path is always `work/<name>/`. Do not rename or delete it by
+industry; stable paths let shared skills and future updates keep working.
 
-**Decision rule, from Q5a/Q6a/Q6b — does their work come in named, repeating
-units a customer would recognize?** If yes, rename the folder to their word
-for that unit. If no, delete it.
+Choose the plain-language label the owner will hear in conversation—client
+engagement, case, matter, job, property, project, or another real term—and add
+it under a short **How we name work** heading in `context/business.md`. The
+underlying folder stays `work/`.
+One client/account may own several work items, so never assume a customer and a
+case or project are the same record.
 
-| Their work | Folder |
-|---|---|
-| Legal, accounting, insurance, anything with a matter number | `cases/` |
-| Agency, consulting, bookkeeping, marketing, any retainer | `clients/` (leave it) |
-| Trades, contracting, install, repair, field service | `jobs/` |
-| Design, dev, events, anything quoted per piece of work | `projects/` |
-| Creators, e-commerce, courses, restaurants, retail | delete it |
-
-Rename (swap `cases` for whichever word applies):
-
-```bash
-mv clients cases
-sed -i '' 's/clients\//cases\//g' AGENTS.md README.md cases/README.md cases/_template/context.md cases/_template/rules.md
-```
-
-**Then read those five files and fix the prose by hand — the path swap is mechanical, the words are not.** The template's sentences assume the unit of work is *a person* ("make a folder for someone", "how they like to be spoken to"), which is only true for `clients/`. For `cases/`, `jobs/`, or `projects/` the unit is a *matter*, so rewrite those lines: a case has a client, a job has a customer, and one client can have five matters. Ten minutes, and it's the difference between a repo that reads like theirs and one that reads like a find-and-replace.
-
-(Plain `mv`, not `git mv` — there's no git repo yet at this point. Step 1 deleted it and step 9 recreates it.)
-
-Or delete:
-
-```bash
-rm -rf clients
-```
-
-Then skim `AGENTS.md` § "Working for a specific …" once. The swap reads
-cleanly for all four words, but it's a 20-second check worth doing.
-
-If you deleted the folder, delete that whole section from `AGENTS.md` and the
-`clients/` row from `README.md` as well. A section pointing at a folder that
-isn't there is exactly the kind of thing that makes a student stop trusting
-the repo.
+Do not pre-create empty work items. The owner can say **start a work item** when
+the first real unit appears.
 
 ## 6. Install and build the site
 
@@ -188,15 +164,22 @@ In the student's repo folder, open Codex and run these five. Do not skip it beca
 1. **`good-morning`** — does it name their business, their North Star, and suggest three moves that are actually about them? Generic advice here means a context file is thin. Fix the file, not the answer.
 2. **`update-website`** — ask for one word change on the homepage. Confirm `npm run build` still passes.
 3. **`npm run dev`** in `site/`, open `http://localhost:3000` — the homepage looks like their business, no `{{TOKENS}}` visible on screen.
-4. **`write a blog post`** — with `npm run dev` still running, ask for a short post. It should appear under "Latest writing" on the homepage and at `http://localhost:3000/blog` within a second or two, and the post itself should open. This is the Friday demo; if it doesn't work here it won't work on stage.
+4. **`write a blog post`** — ask for a short post. Confirm it is saved as a
+   private draft in `content/` with `published: false` and does **not** appear
+   on the website. Then explicitly say **publish this post**, naming that
+   file. Confirm only its approved copy appears under "Latest writing" and at
+   `/blog`. This proves both sides of the publication boundary.
 5. **This returns nothing** (it ignores this file, the skills, and real JSX braces):
 
    ```bash
-   grep -rn '{{[A-Z][A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' . \
-     | grep -v '.claude/skills/' | grep -v 'PERSONALIZE.md'
+   grep -rn '{{[A-Z][A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' \
+     --exclude='PERSONALIZE.md' --exclude-dir='.claude' --exclude-dir='node_modules' \
+     --exclude-dir='.next' .
    ```
 
-Then empty `content/` so their repo starts clean — everything the smoke test made, **plus the shipped `2026-08-22-blog-example-post.md`**. That example is there to demo the loop on a fresh template; a student's real site should not launch with it.
+Delete the smoke-test draft and public copy afterward. Remove or rewrite the
+shipped example in `site/content/`; a personalized site must not launch with a
+generic example attributed to the owner.
 
 ## 8. Per-student checklist
 
@@ -205,9 +188,9 @@ Copy this per student. Nobody ships without all ten.
 ```
 [ ] 1 repo copied + renamed        [ ] 6 npm install + build pass
 [ ] 2 enriched from site/socials   [ ] 7 smoke test: good-morning names them
-[ ] 3 all tokens filled            [ ] 8 smoke test: site + blog post appear
+[ ] 3 all tokens filled            [ ] 8 draft private; approved post public
 [ ] 4 track correct (owner/emp)    [ ] 9 no {{ tokens left, content/ empty
-[ ] 5 client folder named/deleted  [ ] 10 pushed + invite sent
+[ ] 5 work-item label confirmed    [ ] 10 pushed + invite sent
 ```
 
 ## 9. Git and GitHub
@@ -218,7 +201,7 @@ git init
 git add .
 git commit -m "Business OS for {{BUSINESS_NAME}}"
 gh repo create <your-org>/firstname-business-os --private --source=. --push
-gh repo add-collaborator <your-org>/firstname-business-os <their-github-username> --permission admin
+gh api --method PUT repos/<your-org>/firstname-business-os/collaborators/<their-github-username> -f permission=admin
 ```
 
 If Q14 came back as "I promise I'll create one" and they still haven't, chase it. No username = no repo Friday morning.
@@ -229,7 +212,7 @@ If Q14 came back as "I promise I'll create one" and they still haven't, chase it
 
 ```bash
 rm PERSONALIZE.md
-git add -A && git commit -m "Remove operator notes" && git push
+git add -- PERSONALIZE.md && git commit -m "docs: remove operator notes" && git push
 ```
 
 Students should never see this file.

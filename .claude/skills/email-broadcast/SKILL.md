@@ -51,5 +51,5 @@ description: Write and send an email to the whole list. Use when the owner wants
 ## Done when
 
 - The owner has read it and knows exactly who receives it.
-- It sits as a draft, not a sent message.
-- The owner pressed send themselves.
+- If connected, it sits as a draft for the owner to send; if not connected, the owner has the final copy to paste.
+- If the owner chooses to send it, they press send themselves. A saved draft is also a complete outcome.

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "installer": {
+    "name": "skills",
+    "version": "1.5.23"
+  },
+  "capabilities": [
+    {
+      "id": "remotion-video",
+      "name": "Remotion video production",
+      "status": "optional",
+      "purpose": "Create deterministic, code-rendered marketing videos after the business brand and message are ready.",
+      "source": {
+        "repository": "https://github.com/remotion-dev/skills",
+        "commit": "21320596cf9008cf6ccaa6bf1a2b9f71c8f191c3",
+        "skill": "remotion-best-practices",
+        "licenseReviewRequired": true,
+        "reviewedAt": "2026-08-19"
+      },
+      "install": {
+        "scope": "project-local",
+        "command": "test ! -e .claude/skills/remotion-best-practices && DISABLE_TELEMETRY=1 npx --yes skills@1.5.23 add https://github.com/remotion-dev/skills/archive/21320596cf9008cf6ccaa6bf1a2b9f71c8f191c3.tar.gz --skill remotion-best-practices --copy"
+      },
+      "notes": [
+        "Inspect the selected skill and its references before installation.",
+        "Confirm the business is licensed to use Remotion before commercial rendering.",
+        "Installing this skill does not install a video project or publish a video."
+      ]
+    }
+  ]
+}

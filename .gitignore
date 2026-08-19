@@ -23,3 +23,7 @@ site/out/
 npm-debug.log*
 .idea/
 .vscode/
+
+# Temporary observations collected during a working session. Wrap-up distills
+# useful lessons, then clears this scratch file; it never belongs on GitHub.
+.session-observations.md

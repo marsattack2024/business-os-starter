@@ -9,7 +9,7 @@ Fills the gaps in `context/` by asking the owner, then writing their answers dow
 
 ## Read first
 
-All five files in `context/` — `business.md`, `customers.md`, `offer.md`, `voice.md`, `goals.md`. Most of these are already partly filled in.
+All seven files in `context/`: `business.md`, `customers.md`, `offer.md`, `voice.md`, `goals.md`, `rules.md`, and `gtm.md`. `gtm.md` may deliberately remain unwritten until the owner runs `launch-gtm`.
 
 ## Steps
 
