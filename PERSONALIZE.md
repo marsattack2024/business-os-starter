@@ -122,11 +122,13 @@ rm context/offer.md
 {{WHERE_I_FIT}}
 ```
 
-Then fix the three pointers to `offer.md` so nothing points at a deleted file:
-- `AGENTS.md` — "Before every task" list → `context/role.md` and `context/company.md`
-- `.claude/skills/write-email/SKILL.md` and `write-content/SKILL.md` — "Read first" lists
+**Do NOT delete `context/offer.md`.** Fourteen skills read it — including `launch-gtm` and `update-website`, two of Friday's demos. Deleting it breaks block 2 for that student. Instead, **repurpose it**: on the employee track, `offer.md` describes what the *company* sells (the thing this person's work supports), with a first line saying so. Then add `role.md` and `company.md` alongside it.
 
-Skills need no other changes. `write-email`, `write-content`, and `good-morning` work identically for a role.
+Then add the two new files to the pointers:
+- `AGENTS.md` — "Before every task" list gains `context/role.md` and `context/company.md`
+- `.claude/skills/write-email/SKILL.md` and `write-content/SKILL.md` — "Read first" lists gain the same two
+
+No skill deletions, no other edits. `write-email`, `write-content`, and `good-morning` work identically for a role.
 
 ## 5. Name the client folder, or delete it
 
@@ -185,7 +187,12 @@ In the student's repo folder, open Codex and run these five. Do not skip it beca
 2. **`update-website`** — ask for one word change on the homepage. Confirm `npm run build` still passes.
 3. **`npm run dev`** in `site/`, open `http://localhost:3000` — the homepage looks like their business, no `{{TOKENS}}` visible on screen.
 4. **`write a blog post`** — with `npm run dev` still running, ask for a short post. It should appear under "Latest writing" on the homepage and at `http://localhost:3000/blog` within a second or two, and the post itself should open. This is the Friday demo; if it doesn't work here it won't work on stage.
-5. **`grep -rn '{{' --include='*.md' --include='*.tsx' . | grep -v '.claude/skills/'`** returns nothing.
+5. **This returns nothing** (it ignores this file, the skills, and real JSX braces):
+
+   ```bash
+   grep -rn '{{[A-Z][A-Z0-9_]*}}' --include='*.md' --include='*.tsx' --include='*.css' . \
+     | grep -v '.claude/skills/' | grep -v 'PERSONALIZE.md'
+   ```
 
 Then empty `content/` so their repo starts clean — everything the smoke test made, **plus the shipped `2026-08-22-blog-example-post.md`**. That example is there to demo the loop on a fresh template; a student's real site should not launch with it.
 

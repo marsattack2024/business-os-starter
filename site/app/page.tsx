@@ -13,11 +13,10 @@
 //   7. FOOTER    your name, email and the year
 //
 // HOW TO CHANGE THE WORDS
-// Look for the placeholders in double curly braces, like
-// {{HERO_HEADLINE}}. Replace the placeholder with your own words
-// and KEEP THE QUOTE MARKS around it.
+// Look for the placeholders in double curly braces below. Replace the
+// placeholder with your own words and KEEP THE QUOTE MARKS around it.
 //
-//   before:  {"{{HERO_HEADLINE}}"}
+//   before:  {"<the headline placeholder>"}
 //   after:   {"Wedding photography in Austin, without the stress"}
 //
 // Save the file. The page in your browser updates on its own.

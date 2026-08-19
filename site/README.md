@@ -42,11 +42,11 @@ sections — header, hero, services, proof, latest writing, call to action,
 footer — and each one has a plain-English note above it telling you what it
 does.
 
-Look for placeholders in double curly braces, like `{{HERO_HEADLINE}}`.
+Look for placeholders in double curly braces — the headline one is near the top.
 Replace the placeholder with your own words and keep the quote marks:
 
 ```
-before:  {"{{HERO_HEADLINE}}"}
+before:  {"...the headline placeholder..."}
 after:   {"Wedding photography in Austin, without the stress"}
 ```
 
