@@ -13,12 +13,19 @@ The owner describes what they want in their own words. You make the smallest cha
 - `site/app/page.tsx` — every word on the homepage, in commented sections
 - `site/app/globals.css` — the `@theme` block at the top holds the colors and fonts
 - `context/voice.md` and `context/offer.md` — before writing any new words on the page
+- `.claude/skills/live-preview-tweaks/SKILL.md` — when the site is still a placeholder or two+ design directions are open (palette, hero layout, CTA copy, motion)
 
 ## Steps
 
 1. Work out which of two things they're asking for:
    - **Words** → `site/app/page.tsx`. Find the commented section that matches what they described.
    - **Look** → `site/app/globals.css`. Most color and font requests are one line in the `@theme` block.
+
+   If the homepage is still placeholder copy/layout and the owner has not locked a
+   look, **offer `live-preview-tweaks`** before committing one direction: a small
+   on-page panel so they can toggle options live. Add the panel when they agree;
+   remove it after they lock the design. Do not ship tweak UI to production without
+   explicit approval.
 
    If a request needs a section that doesn't exist yet, say so plainly and ask if they want you to add one.
 

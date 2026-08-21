@@ -42,22 +42,30 @@ Ask in your own words — you never have to remember these names.
 - **launch my go-to-market** — researches your market and writes the plan everything else runs on
 - **plan my content** · **repurpose this** · **build an offer page** · **build a lead magnet**
 - **follow up on leads** · **ask for reviews** · **research a competitor**
+- **dream 100** — builds a focused prospect list across public business contacts (email, phone, Facebook, Instagram, website form)
+- **watch this video** — transcribes and reviews public YouTube, TikTok, or Instagram videos
+- **property scout** — practices listing search on synthetic sample data (not a live MLS)
 
 **Building things**
 - **build me a tool** — a calculator, quiz, or form on your site
 - **prototype this idea** — answers one design question with a disposable local demo before anyone buys or connects anything
 - **launch a small app** — turns a proven idea into a separately approved public app, using the simplest suitable hosting and Neon when it truly needs accounts or data
+- **generate a video** — remote Veo/Gemini video when you have an API key (Remotion stays optional in the catalog)
+- **generate story ads** — Meta-size ad images when you have Gemini/OpenAI keys
+- **live preview tweaks** — on-page design toggles while the website is still a placeholder
 - **help me understand this** — turns complicated work into a sourced visual decision brief or a training pack
 - **make this better** — improves anything against a standard you set
 - **train my employee** — change how it works, forever
+- **codex doctor** — audits the AI employee harness itself
 
 **Once you connect your accounts**
 - **connect an account** — walks you through it
 - **connect Agents First** — links your own Accountability workspace for daily check-ins and goals
 - **daily accountability** · **weekly accountability** · **plan my business goals**
 - **run Facebook ads** · **publish to YouTube** · **email my list** · **how are we doing?**
+- **vercel** · **neon** — docs-first hosting and database pointers (no silent project create)
 
-Optional capabilities, such as code-rendered marketing video, are reviewed and added one at a time. See `docs/skills-connections-and-updates.md`; never bulk-install an unknown skill collection.
+Optional capabilities, such as code-rendered Remotion video, are reviewed and added one at a time. See `docs/skills-connections-and-updates.md`; never bulk-install an unknown skill collection. Delete any skill folder under `.claude/skills/` you do not want — then remove its name from `.skill-paths.txt`.
 
 You also have **onboard me**, which fills in anything your employee still doesn't know about you.
 

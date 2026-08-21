@@ -24,6 +24,21 @@ description: Write a blog post, newsletter, or social post in the owner's voice.
 
 2. Write it for the length that platform actually wants. A LinkedIn post is not a blog post with line breaks.
 
+   **Instagram (and LinkedIn document) beats — pick a structure before drafting slides:**
+
+   | Content is… | Use | Cover promise |
+   |---|---|---|
+   | A countable list of tips/tools/resources | Value-Stack | Exact count + exact deliverable |
+   | A real result with a system behind it | Problem-Proof | Result-as-fact → mechanism → proof close |
+   | Several named techniques | Hack List | Contrarian hook → one named technique per slide |
+   | A strong opinion on a common practice | Rant Callout | Provocation → specifics → fairness pivot → signed close |
+   | A product or workflow you can show | Demo Walkthrough | Outcome first → overview → one step per slide |
+
+   Cross-rules: slide 1 must work as a standalone thumbnail; one visual template for
+   interior slides; deliver every count you promise; real claims only; one CTA on
+   the final slide. Reels use a simpler beat: Hook (0–2s) → Setup (2–5s) → Value
+   (5–25s) → CTA (last seconds).
+
 3. Rules that hold every time:
    - Open with something true and specific — a moment, a number, a thing a customer said. Never open with a definition or "In today's world."
    - One idea per piece. A second good idea is a second piece; note it in `context/goals.md`.

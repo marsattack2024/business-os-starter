@@ -1,0 +1,102 @@
+[
+  {
+    "query": "Run codex doctor on this repository and tell me why the skills are not loading.",
+    "should_trigger": true,
+    "reason": "Explicit skill name and routing failure."
+  },
+  {
+    "query": "Audit our CLAUDE.md, AGENTS.md, hooks, and skill mirrors before we copy this repo.",
+    "should_trigger": true,
+    "reason": "Direct agent-harness audit."
+  },
+  {
+    "query": "These Codex skills came from our old monorepo. Find stale paths and wrong database assumptions.",
+    "should_trigger": true,
+    "reason": "Semantic skill drift and wrong-repository guidance."
+  },
+  {
+    "query": "Why does this .codex skill symlink work on my Mac but fail in CI?",
+    "should_trigger": true,
+    "reason": "Fresh-clone symlink portability."
+  },
+  {
+    "query": "Prune agent context without breaking automatic skill routing.",
+    "should_trigger": true,
+    "reason": "Context cost and invocation metadata."
+  },
+  {
+    "query": "Check whether our Claude and Codex hooks actually execute outside the repository root.",
+    "should_trigger": true,
+    "reason": "Hook resolution and cwd dependence."
+  },
+  {
+    "query": "We inherited another team's .claude folder. Which skills should we keep, rewrite, or remove?",
+    "should_trigger": true,
+    "reason": "Skill lifecycle audit."
+  },
+  {
+    "query": "Verify the agent harness after the cleanup, including a fresh clone and the named CI job.",
+    "should_trigger": true,
+    "reason": "Doctor verification mode."
+  },
+  {
+    "query": "Codex is ignoring a project skill even though SKILL.md exists. Diagnose the routing metadata.",
+    "should_trigger": true,
+    "reason": "Skill description and invocation routing."
+  },
+  {
+    "query": "Create a reusable report of broken agent docs, commands, symlinks, and stale successor skills.",
+    "should_trigger": true,
+    "reason": "Complete doctor report request."
+  },
+  {
+    "query": "Fix the checkout bug in our shopping cart.",
+    "should_trigger": false,
+    "reason": "General application bug."
+  },
+  {
+    "query": "Run npm audit and upgrade vulnerable dependencies.",
+    "should_trigger": false,
+    "reason": "Dependency security workflow."
+  },
+  {
+    "query": "Review this pull request for TypeScript defects.",
+    "should_trigger": false,
+    "reason": "Code review, not agent harness."
+  },
+  {
+    "query": "My doctor changed my prescription. Summarize these medical notes.",
+    "should_trigger": false,
+    "reason": "Medical use of doctor."
+  },
+  {
+    "query": "Audit our Supabase RLS policies and database indexes.",
+    "should_trigger": false,
+    "reason": "Database audit."
+  },
+  {
+    "query": "The production deploy is failing during the Next.js build.",
+    "should_trigger": false,
+    "reason": "Application deployment diagnosis."
+  },
+  {
+    "query": "Write a new skill that generates sales proposals.",
+    "should_trigger": false,
+    "reason": "Skill creation rather than harness diagnosis."
+  },
+  {
+    "query": "Clean up unused React components and duplicated hooks.",
+    "should_trigger": false,
+    "reason": "Application refactor."
+  },
+  {
+    "query": "Give the marketing website a complete conversion audit.",
+    "should_trigger": false,
+    "reason": "Marketing audit."
+  },
+  {
+    "query": "Check whether our cron jobs and webhooks are healthy in production.",
+    "should_trigger": false,
+    "reason": "Runtime operations audit without agent tooling."
+  }
+]

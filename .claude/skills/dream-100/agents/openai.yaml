@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dream 100"
+  short_description: "Build value-first prospect and partner campaigns"
+  default_prompt: "Build or improve a source-backed Dream 100 campaign with truthful value-first outreach, appropriate channels, and measurable relationship outcomes."
