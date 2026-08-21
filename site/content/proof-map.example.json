@@ -1,0 +1,12 @@
+{
+  "purpose": "Copy this file to proof-map.json in a client fork before launch. Every review count, award, guarantee, years-in-business claim, rating, or featured claim needs a source or a fallback.",
+  "claims": [
+    {
+      "claim": "Example: 200+ sessions photographed",
+      "renderedLocation": "components/sections/SocialProofStrip.tsx",
+      "source": "Client-approved review export, booking report, or public URL",
+      "approvalStatus": "unsupported",
+      "fallbackCopy": "Guided portrait sessions"
+    }
+  ]
+}

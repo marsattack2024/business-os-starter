@@ -1,0 +1,107 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/block-dangerous-commands.sh\"'"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/protect-sensitive-files.sh\"'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/auto-format.sh\"'",
+            "timeout": 30000
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/verify-no-secrets.sh\"'",
+            "timeout": 10000
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/check-typescript.sh\"'",
+            "timeout": 60000
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/check-console-calls.sh\"'",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/check-ui-tokens.sh\"'",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/precompact-context.sh\"'",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/session-setup.sh\"'",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/user-prompt-context.sh\"'",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/ralph-stop-hook.sh\"'",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'REPO=$(git rev-parse --show-toplevel) && bash \"$REPO/templates/new-build/.codex/hooks/ralph-ui-gate.sh\"'",
+            "timeout": 10000
+          }
+        ]
+      }
+    ]
+  }
+}

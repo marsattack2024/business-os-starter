@@ -1,55 +1,40 @@
 ---
 name: update-website
-description: Change the owner's website from a plain-language request. Use when the owner wants to change words, colors, sections, or anything about how their site looks or reads.
+description: Change the owner's website from a plain-language request. Use for words, brand details, page sections, layout, or public content in the new-build site.
 ---
 
 # Update the Website
 
-The owner describes what they want in their own words. You make the smallest change that gets it.
+The owner says what they need in ordinary language. Make the smallest truthful
+change in `site/` that fulfills it.
 
 ## Read first
 
-- `context/rules.md` — what this business may never claim or do. These rules beat anything below.
-- `site/app/page.tsx` — every word on the homepage, in commented sections
-- `site/app/globals.css` — the `@theme` block at the top holds the colors and fonts
-- `context/voice.md` and `context/offer.md` — before writing any new words on the page
-- `.claude/skills/live-preview-tweaks/SKILL.md` — when the site is still a placeholder or two+ design directions are open (palette, hero layout, CTA copy, motion)
+- `context/rules.md` before touching a public claim, offer, testimonial, or contact path.
+- `context/voice.md`, `context/offer.md`, and `context/customers.md` before writing customer-facing copy.
+- `site/CLAUDE.md`, `site/package.json`, and the exact public surface being changed.
+
+## Find the right owner
+
+- Brand name, navigation, booking CTA, business details, images, and site-wide metadata: `site/lib/site.config.tsx`.
+- Reusable proof, FAQs, process, contact-form copy, and page section data: `site/lib/content.config.ts`.
+- Homepage and route composition: `site/app/(site)/` and `site/components/`.
+- Blog posts: `site/content/blog/*.mdx`; private drafts remain in the repository-root `content/` folder until explicitly approved.
+- Colors, spacing, and typography tokens: `site/app/globals.css`.
+
+Do not replace a shared component with copy-pasted page markup. Reuse the existing
+section and layout components whenever they fit the request.
 
 ## Steps
 
-1. Work out which of two things they're asking for:
-   - **Words** → `site/app/page.tsx`. Find the commented section that matches what they described.
-   - **Look** → `site/app/globals.css`. Most color and font requests are one line in the `@theme` block.
+1. Identify the smallest appropriate content, configuration, or component owner.
+2. Make only source-backed claims. If the required fact is not in `context/` or approved source material, ask the owner.
+3. For open design choices, use `.claude/skills/live-preview-tweaks/SKILL.md` rather than guessing a direction.
+4. Run the proportionate checks from `site/package.json`. A configuration or copy-only change needs `npm run content:qa` and `npm run build`; component, route, or form changes also need `npm run typecheck`.
+5. State the changed file, the check run, and any remaining public-review or deployment step in plain language.
 
-   If the homepage is still placeholder copy/layout and the owner has not locked a
-   look, **offer `live-preview-tweaks`** before committing one direction: a small
-   on-page panel so they can toggle options live. Add the panel when they agree;
-   remove it after they lock the design. Do not ship tweak UI to production without
-   explicit approval.
+## Boundaries
 
-   If a request needs a section that doesn't exist yet, say so plainly and ask if they want you to add one.
-
-   **Blog posts are the exception.** The homepage "Latest writing" section,
-   the `/blog` list, and each post page are built only from `site/content/` —
-   you never type a post into `page.tsx`. `content/` contains private drafts
-   and is never read by the website. Use **publish this post** only after the
-   owner explicitly approves a draft; if a public post is missing, inspect its
-   copy in `site/content/` and its `published:` line.
-
-2. Make the change. Keep the section comments intact — they're how the owner finds their way around this file. If you add a section, give it a comment block in the same style.
-
-3. Check it still runs: `cd site && npm run build`. If it fails, read the error, fix it, and run it again. Never hand back a site that doesn't build.
-
-4. Tell the owner what changed, in one sentence, and to look at their browser tab. If the site isn't running, tell them: open a second Terminal window, `cd` into the `site` folder, type `npm run dev`, then open `http://localhost:3000`.
-
-5. If they don't like it, change it back. Their site, their call — don't defend a version.
-
-## Save it
-
-`content/YYYY-MM-DD-website-<what-changed>.md` — one short note: what they asked for, what you changed, which file. This is the record of how the site got the way it is.
-
-## Done when
-
-- `npm run build` passes.
-- The change is exactly what they asked for and nothing else moved.
-- The owner has looked at it.
+- The root `context/`, root `content/`, `work/`, and `inbox/` folders are private and must never be imported into public site code or a deployment.
+- A successful build prepares a website change; it does not publish or deploy it.
+- Do not invent testimonials, prices, availability, outcomes, credentials, or legal/medical claims.

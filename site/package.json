@@ -1,25 +1,59 @@
 {
-  "name": "site",
+  "name": "new-build",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build --webpack",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
+    "audit": "npm audit --audit-level=high",
+    "content:qa": "node scripts/content-qa.mjs",
+    "content:qa:launch": "node scripts/content-qa.mjs --launch",
+    "blog:images": "node scripts/blog-images.mjs",
+    "intake:images": "node scripts/intake-images.mjs",
+    "photos:build": "node scripts/build-photo-manifest.mjs",
+    "smoke:routes": "node scripts/route-smoke.mjs",
+    "ghl:attribution-fields": "node scripts/ghl-attribution-fields.mjs",
+    "verify": "node scripts/verify-template.mjs",
+    "test": "node --import tsx --test \"lib/**/*.test.ts\"",
+    "build:check": "NEXT_DIST_DIR=.next-verify next build --webpack"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.9",
+    "fast-uri": "3.1.5",
+    "minimatch": "10.2.6",
+    "postcss": "$postcss",
+    "sharp": "$sharp",
+    "hono": "4.13.0",
+    "ip-address": "10.4.0"
   },
   "dependencies": {
-    "gray-matter": "^4.0.3",
-    "marked": "^18.0.10",
-    "next": "16.3.1",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@next/third-parties": "^16.2.12",
+    "framer-motion": "^12.42.2",
+    "marked": "^18.0.6",
+    "next": "^16.2.12",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.3.3",
-    "@types/node": "^24.10.1",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.4",
-    "tailwindcss": "4.3.3",
-    "typescript": "5.9.3"
+    "@tailwindcss/postcss": "^4.3.2",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
+    "postcss": "^8.5.23",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.2",
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3"
   }
 }

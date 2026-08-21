@@ -1,0 +1,20 @@
+---
+title: "Example Post: rename without the leading _ to publish"
+slug: "example-post"
+date: "2026-01-01"
+author: "Studio Name"
+excerpt: "One-sentence meta description, <=155 chars. The migrate-site skill writes this automatically."
+category: "Boudoir"
+tags: ["tag-one", "tag-two"]
+coverImage: "/blog/example-post/cover.webp"
+coverAlt: "Image-grounded alt text describing the cover photo."
+canonicalFrom: ["/blog/2024/1/1/old-dated-url"]
+---
+
+Body in **Markdown**. Files prefixed with `_` are ignored by the loader, so this
+documents the frontmatter contract without rendering as a real post.
+
+Drop migrated `*.mdx` posts (produced by the `migrate-site` skill) into this
+folder and they appear at `/blog/<slug>` automatically, with no code changes. Images
+referenced as `/blog/<slug>/name.webp` live under `public/blog/<slug>/`; their
+dimensions go in `content/blog/_image-dims.json` (path → `[w, h]`) for CLS.

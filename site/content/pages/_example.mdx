@@ -1,0 +1,16 @@
+---
+title: "Example Landing Page: rename without the leading _ to publish"
+slug: "example-landing"
+description: "Meta description for this marketing page, <=155 chars."
+heroImage: "/pages/example-landing/hero.webp"
+canonicalFrom: ["/example-landing"]
+status: "draft"
+---
+
+Landing / marketing page body in **Markdown**. Files prefixed with `_` are ignored
+by the loader.
+
+Migrated pages (from the `migrate-site` skill) render at their original `/<slug>`
+only after `status` is set to `indexable` or `noindex`. Keep imported pages as
+`draft` until redirects, legal/proof review, image checks, and canonical
+decisions are complete. Images live under `public/pages/<slug>/`.

@@ -1,0 +1,10 @@
+export { WelcomeSlide } from "./WelcomeSlide";
+export { QuestionSlide } from "./QuestionSlide";
+export { ExplanationSlide } from "./ExplanationSlide";
+export { OfferChoiceSlide } from "./OfferChoiceSlide";
+export { EmailSlide } from "./EmailSlide";
+export { FairEnoughSlide } from "./FairEnoughSlide";
+export { NameSlide } from "./NameSlide";
+export { PhoneSlide } from "./PhoneSlide";
+export { FinalQuestionSlide } from "./FinalQuestionSlide";
+export { ThankYouSlide } from "./ThankYouSlide";

@@ -1,0 +1,9 @@
+.react-router
+build
+.next
+node_modules
+README.md
+# Never copy secrets into the image (env files, tokens, keys)
+.env
+.env.local
+.env.*.local

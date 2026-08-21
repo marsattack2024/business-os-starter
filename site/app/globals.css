@@ -1,145 +1,477 @@
-/* ============================================================
-   YOUR LOOK AND FEEL LIVES HERE
-
-   This is the only file you need for colors, fonts and corners.
-   Change a value below, save the file, and the whole site changes.
-
-   Colors are written as hex codes (like #2F6FED).
-   You can get a hex code from any color picker on the web.
-   ============================================================ */
-
 @import "tailwindcss";
 
-@theme {
-  /* --color-brand: your main color. Buttons and links use it. */
-  --color-brand: #2f6fed;
+/* ═══════════════════════════════════════════════
+   LAYER 1 — PRIMITIVES
+   Swap this block per client. One block. One file.
+   All values use oklch() for perceptual uniformity.
+   ═══════════════════════════════════════════════ */
+:root {
+  /*
+   * UNSET SCAFFOLD — not a finished brand.
+   * Achromatic defaults so forks do not ship as cream+gold twins.
+   * Before launch: copy a pack from lib/themes/*.tokens.ts into these
+   * six primitives (and sync lib/og-colors.ts). See lib/themes/README.md.
+   */
+  --primitive-ink:    oklch(18% 0.004 260);   /* near-black, almost neutral */
+  --primitive-cream:  oklch(98.5% 0.002 260); /* true off-white canvas */
+  --primitive-accent: oklch(48% 0.008 260);   /* ink-adjacent gray (decorative) */
+  --primitive-accent-text: oklch(38% 0.008 260); /* darkened gray for text AA on cream */
+  --primitive-muted:  oklch(42% 0.006 260);   /* secondary text — AA on cream */
+  --primitive-border: oklch(90% 0.004 260);   /* subtle cool-neutral borders */
+  --primitive-error:  oklch(54% 0.20 25);     /* form errors — passes 4.5:1 on cream */
+  --primitive-error-on-dark: oklch(80% 0.12 25); /* form errors on a dark scrim */
+  /* Matte behind <Image fill> while loading — neutral, not warm paper. */
+  --primitive-image-loading: oklch(92% 0.004 260);
 
-  /* --color-brand-dark: a darker version of your main color.
-     Buttons turn this color when someone hovers over them. */
-  --color-brand-dark: #1f4fc4;
-
-  /* --color-ink: the color of your headlines and main text. */
-  --color-ink: #14161d;
-
-  /* --color-muted: the softer grey used for supporting sentences. */
-  --color-muted: #5b6270;
-
-  /* --color-page: the background color of the whole page. */
-  --color-page: #fbfaf8;
-
-  /* --color-card: the background color of the three service boxes. */
-  --color-card: #ffffff;
-
-  /* --color-line: the color of the thin dividing lines and box edges. */
-  --color-line: #e7e4de;
-
-  /* --font-sans: the font for everything.
-     The browser uses the first font on this list that it has. */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-
-  /* --radius-soft: how rounded the corners are on buttons and boxes.
-     0px is square. 24px is very round. */
-  --radius-soft: 12px;
+  /* ── Editorial extensions ──
+     The primitives above are the original cross-fork contract. These three are
+     what the band-and-plane page system (components/pc/*) needs on top of it:
+     a SECOND paper so alternating bands can differ without a border, a softened
+     ink for body copy on paper, and a lifted accent that stays legible on the
+     dark planes (the AA-safe `accent-text` is tuned for cream and goes muddy on
+     near-black). Achromatic here like the rest of the scaffold — a fork swaps
+     all nine together from lib/themes/*.tokens.ts. */
+  --primitive-paper-2:      oklch(96% 0.002 260);   /* alternate band, one step off cream */
+  --primitive-ink-soft:     oklch(30% 0.004 260);   /* body copy — AA on cream */
+  --primitive-accent-light: oklch(75% 0.006 260);   /* accent on the dark plane */
 }
 
-/* ============================================================
-   HOW A BLOG POST READS
+/* ═══════════════════════════════════════════════
+   LAYER 2 — SEMANTIC TOKENS (mapped to Tailwind)
+   Components reference these — NEVER the primitives.
+   Never hardcode hex in a component file.
+   Audit: grep -r "#[0-9a-fA-F]" --include="*.tsx" .
+   ═══════════════════════════════════════════════ */
+@theme {
+  /* ── Brand colors ── */
+  --color-ink:          var(--primitive-ink);
+  --color-cream:        var(--primitive-cream);
+  --color-accent:       var(--primitive-accent);
+  --color-accent-text:  var(--primitive-accent-text);
+  --color-muted:        var(--primitive-muted);
+  --color-border:       var(--primitive-border);
+  --color-error:        var(--primitive-error);
+  --color-error-on-dark: var(--primitive-error-on-dark);
+  /* Image-loading frame. Apply to the <div> wrapping every <Image fill>:
+       <div class="relative h-... bg-(--color-image-loading)"> <Image fill /> </div>
+     For images that get a dark gradient overlay (Hero, ImageQuote),
+     use bg-(--color-ink) instead — continuous with the overlay. */
+  --color-image-loading: var(--primitive-image-loading);
+  --color-white:        oklch(100% 0 0);
+  /* Editorial extensions — see the primitives block for what each one is for. */
+  --color-paper-2:      var(--primitive-paper-2);
+  --color-ink-soft:     var(--primitive-ink-soft);
+  --color-accent-light: var(--primitive-accent-light);
 
-   Your posts are written as plain text and turned into a page
-   automatically, so their headings, paragraphs and lists are
-   styled here rather than in the page files.
+  /* ── Overlay colors (for text/UI on dark images) ── */
+  --color-overlay-dark-heavy:    oklch(0% 0 0 / 0.75);
+  --color-overlay-dark-medium:   oklch(0% 0 0 / 0.5);
+  --color-overlay-dark-light:    oklch(0% 0 0 / 0.4);
+  --color-on-dark-primary:       oklch(100% 0 0);
+  --color-on-dark-secondary:     oklch(100% 0 0 / 0.75);
+  --color-on-dark-muted:         oklch(100% 0 0 / 0.6);
+  --color-border-on-dark:        oklch(100% 0 0 / 0.4);
+  --color-border-on-dark-hover:  oklch(100% 0 0 / 0.6);
+  --color-indicator-inactive:    oklch(100% 0 0 / 0.3);
+  --color-card-on-dark-bg:       oklch(100% 0 0 / 0.05);
+  --color-card-on-dark-border:   oklch(100% 0 0 / 0.1);
 
-   They already use your colors from above. You can leave this
-   whole block alone.
-   ============================================================ */
+  /* ── Typography (scaffold: Source Serif/Sans — not Playfair luxury default) ── */
+  --font-serif:  var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-sans:   var(--font-source-sans), system-ui, sans-serif;
+  --tracking-eyebrow: 0.25em;
+  --tracking-label:   0.2em;
+  --leading-hero:     1.1;
 
-.post-body {
+  /* ── Semantic body type scale (single source of truth) ──
+     Every section's prose references these tokens so copy reads at ONE
+     comfortable, consistent size across the whole site. Tailwind v4 generates
+     `text-eyebrow` / `text-body` / `text-lead` utilities from these. Body +
+     lead are fluid (mobile → desktop) so no per-element `md:` size variants are
+     needed. Bump a value here and the entire site follows.
+       text-eyebrow → small uppercase labels (eyebrows)
+       text-body    → ALL paragraphs + list items (the readability baseline)
+       text-lead    → section intro paragraphs under a headline
+     Rule: body/list copy uses `text-body`, NEVER ad-hoc `text-sm`/`text-xs`.
+     Keep `text-sm`/`text-xs` only for meta (author names, attributions,
+     captions, price notes, fine print). See docs/TEMPLATE-STANDARDS.md §11. */
+  --text-eyebrow: 0.8rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-body: clamp(1.0625rem, 1.0rem + 0.3vw, 1.1875rem);
+  --text-body--line-height: 1.7;
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
+  --text-lead--line-height: 1.6;
+
+  /* ── Display scale + editorial measure ──
+     Headline sizes for the band-and-plane page system (components/pc/*).
+     Editorial, not app-sized: the h1 is a visual event at ~4x body. Fluid, so
+     no component needs its own md:/lg: size ladder.
+
+     These are GEOMETRY, not decoration. `.pc-hero-plate`'s first-screen budget
+     below is measured against this scale and against `--spacing-band` — the
+     17rem it reserves is masthead + breadcrumb strip + the hero copy's top
+     padding + one eyebrow line. Retune them for a fork if the brand asks for
+     it, then re-measure the fold; do not change one in isolation. */
+  --text-display: clamp(2.9rem, 1.5rem + 5.6vw, 7.25rem);
+  --text-display--line-height: 0.93;
+  --text-display--letter-spacing: -0.014em;
+  --text-h2: clamp(2.1rem, 1.35rem + 2.8vw, 3.9rem);
+  --text-h2--line-height: 1.04;
+  --text-h2--letter-spacing: -0.014em;
+  --text-h3: clamp(1.2rem, 1.05rem + 0.6vw, 1.6rem);
+  --text-h3--line-height: 1.18;
+
+  /* Editorial gutters + band rhythm. `Wrap` and `Band` in components/pc/kit.tsx
+     are the only readers, so the whole system's width and vertical rhythm are
+     these four values. */
+  --spacing-gutter: clamp(1.25rem, 5vw, 5.5rem);
+  --spacing-band:   clamp(5rem, 12vh, 9.5rem);
+  --container-editorial: 1460px;
+  --text-measure: 62ch;
+
+  /* ── Spacing (vertical rhythm) ──
+     Section padding consistent across all sections. Heading-block rhythm
+     tokens fix the mt-3 / mt-4 / gap-6 inconsistency flagged in the audit. */
+  --space-section-y:              6rem;     /* py-24 */
+  --space-section-x:              1.5rem;   /* px-6  */
+  --space-heading-eyebrow-gap:    0.75rem;  /* eyebrow → h2 */
+  --space-heading-body-gap:       3.5rem;   /* h2 → body content */
+  --space-subheading-gap:         1rem;     /* subhead spacing */
+  --space-element-gap:            1.5rem;   /* gap-6 */
+  --space-element-gap-sm:         1rem;     /* gap-4 (forms) */
+  --space-element-gap-lg:         3rem;     /* gap-12 (grid cols) */
+  --space-button-py:              1rem;     /* py-4 */
+  --space-button-px:              2rem;     /* px-8 */
+  --space-input-py:               0.75rem;  /* py-3 */
+  /* dvh (dynamic viewport height) tracks the iOS Safari URL-bar state, so the
+     bottom-anchored hero text/CTA isn't cropped on first paint. */
+  --min-h-hero:                   95dvh;
+  --min-h-split:                  600px;
+  --min-h-image-col:              400px;
+
+  /* Compact section variant (BookingUrgencyCTA — reads as a final nudge, py-20) */
+  --space-section-y-compact:      5rem;
+
+  /* Full-width image breaker heights (ImageQuote section) */
+  --h-breaker-sm:                 380px;   /* mobile */
+  --h-breaker-md:                 560px;   /* tablet */
+  --h-breaker-lg:                 620px;   /* desktop */
+
+  /* ── Motion ── (mirror of lib/motion.config.ts — keep in sync)
+     Used by CSS transitions (e.g., AnimateOnScroll). Framer Motion
+     consumes the TS constants directly since it cannot read CSS vars. */
+  --motion-duration-xs:    0.2s;
+  --motion-duration-sm:    0.35s;
+  --motion-duration-base:  0.3s;
+  --motion-duration-md:    0.7s;
+  --motion-duration-lg:    0.75s;
+  --motion-duration-xl:    0.85s;
+  --motion-duration-hero:  0.9s;
+  --motion-ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Offset in-page anchor jumps so a target heading isn't hidden under the
+     desktop sticky announcement bar (StickyBar is md:sticky top-0). */
+  scroll-padding-top: 3rem;
+  /* Template-wide safety net: a single overflowing element (a long unbroken
+     word, an entrance transform, a future embed) must never create a
+     horizontal scrollbar across 20 forks. `clip` (not `hidden`) does NOT
+     create a scroll container, so it leaves `position: sticky` descendants
+     working — unlike `overflow-x: hidden`. */
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+}
+
+/* ═══════════════════════════════════════════════
+   SHARED SCROLL REVEAL — fail-open by construction
+
+   The engine behind `components/pc/Reveal` + `RevealEngine`: one observer for
+   every revealed element on the page, instead of one client boundary each. Read
+   the note in Reveal.tsx before changing any of this.
+
+   The hidden state lives behind TWO gates: `html.motion-ready`, a class only
+   added by live JavaScript, and a reduced-motion no-preference query. If either
+   gate is shut, `[data-reveal]` is styled by nothing at all and the content is
+   simply visible. That is the point: a scroll animation must never be the
+   reason a paragraph cannot be read.
+
+   This is the SECOND of the template's two entrance systems, and it is the one
+   for long editorial pages. `components/ui/AnimateOnScroll` stays the right
+   answer for a handful of sections on a short page; past roughly 20 revealed
+   elements its one-observer-per-element cost is what this replaces.
+   ═══════════════════════════════════════════════ */
+@media (prefers-reduced-motion: no-preference) {
+  html.motion-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.85s var(--motion-ease-out),
+      transform 0.85s var(--motion-ease-out);
+  }
+  html.motion-ready [data-reveal][data-in] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── Image crossfade ──
+     next/image swaps its blur placeholder for the real file in one step with
+     no transition (vercel/next.js#39690), which on a full-bleed photograph
+     reads as a snap from a soft wash to a dark sharp picture. The image starts
+     transparent over its own dominant-colour backdrop and fades in once
+     decoded; RevealEngine sets `data-loaded`.
+
+     Slower than the scroll entrance on purpose. A photograph arriving is the
+     thing the reader came for, and 0.9s of dissolve reads as the picture
+     developing rather than as a UI state change. Behind `motion-ready` like
+     everything else, so a dead script never leaves a photograph invisible. */
+  html.motion-ready img[data-fade-img] {
+    opacity: 0;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  html.motion-ready img[data-fade-img][data-loaded] {
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   SERVICE-PAGE HERO PLATE — the box is the photograph's own shape
+
+   `components/pc/ServicePage.tsx` opens with a full-bleed photograph and puts
+   its copy on paper underneath. Two numbers decide whether that photograph is
+   the one the crop was composed for or a re-crop of it, and both are per-KEY,
+   so they arrive as custom properties rather than as Tailwind classes:
+
+     --plate-a       the NARROW branch's file ratio  (photo.portrait)
+     --plate-a-wide  the WIDE branch's file ratio    (photo.landscape)
+
+   A hardcoded pair of ratios cannot be right for both branches of every key. A
+   registry ships 16:9 bands for landscape masters and 4:3 bands for portrait
+   ones, and portrait mobile crops at whatever `portraitRatio` each key asked
+   for — so one `aspect-[16/9]` box silently cuts a quarter off the bottom of
+   every 4:3 band. Deriving the box from the manifest means the box cannot
+   drift from the file: change a crop, the box follows.
+
+   700px is `ArtDirectedBleedFrame`'s own `<source>` breakpoint. The box and the
+   `<picture>` MUST switch on the same width or a phone-shaped box is handed the
+   landscape file.
+
+   THE WIDE BRANCH IS ALSO BOUNDED BY THE FIRST SCREEN. At 1440 a 4:3 band is
+   1080px tall — taller than a 900px laptop viewport — so an unbounded box makes
+   the whole first screen photograph and pushes every word below the fold.
+   `object-fit: cover` cannot be the answer: cropping a 4:3 band to that budget
+   leaves a head-and-shoulders frame, which is exactly what an art-directed
+   crop exists to prevent. So the HEIGHT is the budget and the WIDTH follows the
+   ratio — the photograph is shown whole, as large as the first screen allows,
+   and the eyebrow under it always clears the fold.
+   ═══════════════════════════════════════════════ */
+.pc-hero-plate {
+  width: 100%;
+  aspect-ratio: var(--plate-a);
+}
+@media (min-width: 700px) {
+  .pc-hero-plate {
+    /* Measured at 1440x900: chrome (masthead + breadcrumb strip) is ~171px,
+       the copy's own top padding is 48px and its eyebrow is 16px. 17rem of
+       budget lands the eyebrow's baseline just above the fold, so the first
+       screen ends on a label rather than on more photograph. The clearance is
+       constant, not a 900px coincidence: every term except this one is fixed,
+       so raising or lowering the viewport moves the box, not the label's
+       margin. `svh` rather than `dvh`: the box must not resize while mobile
+       browser chrome collapses under a scroll. The `max()` floor keeps a freak
+       short window (a 400px-tall desktop) on a small plate rather than on an
+       invalid declaration.
+
+       A fork with a taller or shorter masthead re-measures this one number. */
+    --plate-budget: max(18rem, calc(100svh - 17rem));
+    aspect-ratio: var(--plate-a-wide);
+    max-height: var(--plate-budget);
+    /* Shape-preserving. Capping only the height would hand the difference to
+       `object-fit: cover`, i.e. to the crop. */
+    max-width: calc(var(--plate-budget) * var(--plate-a-wide-n));
+    margin-inline: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   BLOG / PAGE PROSE — long-form reading surface
+   Styles server-rendered Markdown (marked output) injected via
+   dangerouslySetInnerHTML on /blog/[slug] and /[slug].
+
+   ⚠️ TEMPORARY STYLING — a neutral placeholder, NOT a final design. These rules
+   lean on the CURRENT token names (--color-ink / -accent-text / -border,
+   --font-serif). A future client build may use a COMPLETELY DIFFERENT token
+   system; expect to rewrite this whole block when that happens. What's permanent
+   is the PLUMBING (loaders, routes, schema, sitemap/robots/RSS/llms, redirects),
+   not this look. Keep the .post-prose selector + element structure; swap the
+   values. See CLAUDE.md → "Blog & landing plumbing".
+   ═══════════════════════════════════════════════ */
+.post-prose {
   color: var(--color-ink);
   font-size: 1.0625rem;
-  line-height: 1.75;
+  line-height: 1.85;
 }
-
-.post-body > * + * {
-  margin-top: 1.25em;
+.post-prose > * + * {
+  margin-top: 1.5rem;
 }
-
-.post-body h2 {
-  margin-top: 2.25em;
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+.post-prose h2 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  line-height: 1.2;
+  margin-top: 3rem;
 }
-
-.post-body h3 {
-  margin-top: 2em;
+.post-prose h3 {
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  line-height: 1.25;
+  margin-top: 2.25rem;
+}
+.post-prose h4 {
   font-size: 1.2rem;
-  font-weight: 600;
+  margin-top: 1.75rem;
 }
-
-.post-body a {
-  color: var(--color-brand);
+.post-prose a {
+  color: var(--color-accent-text);
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
-
-.post-body strong {
+.post-prose a:hover {
+  color: var(--color-ink);
+}
+.post-prose strong {
   font-weight: 600;
 }
-
-.post-body ul,
-.post-body ol {
-  padding-left: 1.4em;
-}
-
-.post-body ul {
-  list-style: disc;
-}
-
-.post-body ol {
-  list-style: decimal;
-}
-
-.post-body li + li {
-  margin-top: 0.4em;
-}
-
-.post-body blockquote {
-  border-left: 3px solid var(--color-brand);
-  padding-left: 1.1em;
-  color: var(--color-muted);
+.post-prose em {
   font-style: italic;
 }
-
-.post-body hr {
-  border: 0;
-  border-top: 1px solid var(--color-line);
-  margin-top: 2.5em;
+.post-prose ul,
+.post-prose ol {
+  padding-left: 1.4rem;
 }
-
-.post-body img {
+.post-prose ul {
+  list-style: disc;
+}
+.post-prose ol {
+  list-style: decimal;
+}
+.post-prose li {
+  margin-top: 0.5rem;
+}
+.post-prose li::marker {
+  color: var(--color-accent-text);
+}
+.post-prose blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1.25rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--color-accent-text);
+}
+.post-prose img {
+  display: block;
+  width: auto;
   max-width: 100%;
+  max-height: 82vh;
   height: auto;
-  border-radius: var(--radius-soft);
+  margin: 2.75rem auto;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
 }
-
-.post-body code {
-  background: var(--color-card);
-  border: 1px solid var(--color-line);
-  border-radius: 4px;
-  padding: 0.1em 0.35em;
-  font-size: 0.9em;
-}
-
-.post-body pre {
-  background: var(--color-card);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-soft);
-  padding: 1.1em;
-  overflow-x: auto;
-}
-
-.post-body pre code {
-  background: none;
+.post-prose hr {
   border: 0;
-  padding: 0;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+/* ═══════════════════════════════════════════════
+   ACCESSIBILITY — keyboard focus
+   Browser default focus rings vary wildly and often disappear under
+   custom button styles. Use :focus-visible so only keyboard focus
+   triggers the ring (mouse clicks don't get the indicator).
+   ═══════════════════════════════════════════════ */
+:focus-visible {
+  /* accent-text (darkened) instead of decorative --color-accent so the
+     focus indicator passes WCAG AA 3:1 non-text contrast on cream. */
+  outline: 2px solid var(--color-accent-text);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ═══════════════════════════════════════════════
+   ACCESSIBILITY — prefers-reduced-motion
+   WCAG 2.1 SC 2.3.3: collapse motion durations to near-zero and disable
+   transforms/animations for users who have reduced motion enabled.
+   Framer Motion variants check this via useReducedMotion() in JS;
+   this block covers everything CSS-driven (AnimateOnScroll, hover zooms).
+   ═══════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   QUIZ — SAFE-AREA INSET UTILITIES
+   The quiz overlay runs full-bleed (viewportFit:"cover" in layout.tsx),
+   so its pinned controls must clear the notch / home indicator. These
+   utilities pad each edge by the larger of a base offset and the device
+   inset, so the layout is unchanged on inset-free screens (most desktops)
+   and only grows on notched / gesture-bar phones.
+   ═══════════════════════════════════════════════ */
+@utility quiz-inset-top {
+  top: max(1rem, env(safe-area-inset-top));
+}
+@utility quiz-inset-right {
+  right: max(1rem, env(safe-area-inset-right));
+}
+@utility quiz-inset-bottom {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+@utility quiz-inset-left {
+  left: max(1rem, env(safe-area-inset-left));
+}
+
+body[data-tweaks="1"] {
+  overflow-anchor: none;
+}
+
+.pc-tweak-flash {
+  outline: 3px solid var(--color-accent, #a2773a);
+  outline-offset: -3px;
+  animation: pc-tweak-flash-pulse 0.5s ease-out 2;
+}
+
+@keyframes pc-tweak-flash-pulse {
+  0%,
+  100% { outline-color: var(--color-accent, #a2773a); }
+  50% { outline-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-tweak-flash { animation: none; }
 }

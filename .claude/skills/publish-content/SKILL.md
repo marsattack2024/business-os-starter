@@ -1,40 +1,29 @@
 ---
 name: publish-content
-description: Use when the owner explicitly asks to publish an approved blog post or remove a public post from their website.
+description: Use when the owner explicitly asks to publish an approved blog post or remove a public post from the new-build website.
 ---
 
 # Publish Content
 
-Publishing is a deliberate boundary: drafts live in `content/`; only approved
-website posts live in `site/content/`. Never infer approval from a draft being
-complete, polished, or marked ready.
+Publishing is a deliberate boundary. Root `content/` holds private drafts;
+only an explicitly approved public copy belongs in `site/content/blog/`.
 
 ## Publish one approved draft
 
-1. Confirm the owner explicitly approved the exact source file in `content/`.
-   If the request is ambiguous, show the draft and ask which filename to
-   publish.
-2. Read `context/rules.md`, the source draft, and its frontmatter. Do not
-   publish facts, offers, contact details, or claims that are unsupported or
-   forbidden by the rules.
-3. Copy only that one Markdown file to `site/content/` with the same filename.
-   Set `published: true` in the **public copy**. Keep the source draft in
-   `content/` as `published: false`.
-4. Run `cd site && npm run build`. If it fails, fix or revert the public copy;
-   do not hand off a broken build.
-5. Report the public URL (`/blog/<filename-without-.md>`) and the exact public
-   file. This prepares a publishable site change; it does **not** deploy,
-   publish externally, or make any provider write.
+1. Confirm the owner approved the exact source draft. Never infer approval from a polished draft.
+2. Read `context/rules.md`, the draft, and its supporting sources. Do not publish unsupported claims, contact details, or offers.
+3. Create one public `site/content/blog/<slug>.mdx` copy. It must use valid frontmatter: `title`, `slug`, and a `YYYY-MM-DD` `date`; use `status: draft` until the owner authorizes public visibility. Add author, excerpt, category, tags, cover image, and cover alt text when available.
+4. When the owner explicitly authorizes publishing, set `status: published` in that public MDX file. Keep the root source draft private.
+5. Run `cd site && npm run content:qa && npm run build`. If either check fails, fix the public copy or return it to draft status.
+6. Report the prepared URL (`/blog/<slug>`) and exact public file. This creates a reviewable site change; deployment remains a separate explicit request.
 
 ## Remove a public post
 
-When the owner explicitly asks to remove a post, change `published: true` to
-`published: false` only in its `site/content/` copy, run the build, and retain
-the private source draft.
+Set only that post's public `status: draft`, run `npm run content:qa` and `npm run build` in `site/`, and retain the root private draft.
 
 ## Done when
 
-- The response names the exact approved draft and public-copy paths.
-- Exactly one public post changed under `site/content/`.
-- `npm run build` passes inside `site/`.
-- No deployment command, provider action, or other draft was touched.
+- One explicitly approved public MDX file changed under `site/content/blog/`.
+- The root private draft remains private.
+- Content QA and the production build pass.
+- No deployment command or other provider action was taken.
